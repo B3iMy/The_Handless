@@ -20,8 +20,10 @@ Players must master their elemental powers and outmaneuver their opponents in a 
 ### Prerequisites
 
 - Unity Hub
-- Unity (version 2020.3 or later)
+- Unity (version 2022.3.29f1 or later)
 - Visual Studio or another C# IDE
+
+**Important:** Please use Unity version 2022.3.29f1 for the best compatibility and performance.
 
 ### Installation
 
