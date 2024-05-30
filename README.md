@@ -36,12 +36,6 @@ Players must master their elemental powers and outmaneuver their opponents in a 
 
 ### Controls
 
-- **Movement**: WASD or Arrow Keys
-- **Primary Attack**: Left Mouse Button
-- **Secondary Ability**: Right Mouse Button
-- **Jump**: Spacebar
-- **Elemental Ability**: E Key
-
 ## Contributing
 
 We welcome contributions from the community! To contribute:
