@@ -19,7 +19,6 @@ public class EnemyPathfinding : MonoBehaviour
 	{
 		rb.MovePosition(rb.position + moveDir * (moveSpeed * Time.fixedDeltaTime));
 
-		
 		if (moveDir.x < 0 && transform.localScale.x < 0)
 		{
 			flip();
@@ -32,7 +31,7 @@ public class EnemyPathfinding : MonoBehaviour
 
 	public void MoveTo(Vector2 targetPosition)
 	{
-		moveDir = targetPosition.normalized;
+		moveDir = (targetPosition - rb.position).normalized;
 	}
 
 	private void flip()
@@ -42,8 +41,8 @@ public class EnemyPathfinding : MonoBehaviour
 		transform.localScale = localScale;
 	}
 
-	public void SetTarget(Vector2 targetPosition)
+	public void Stop()
 	{
-		moveDir = (targetPosition - (Vector2)transform.position).normalized;
+		moveDir = Vector2.zero;
 	}
 }
