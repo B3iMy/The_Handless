@@ -7,13 +7,15 @@ public class EnemyAi : MonoBehaviour
 	private enum State
 	{
 		Roaming,
-		Chasing
+		Chasing,
+		Stopped
 	}
 
 	private State state;
 	private EnemyPathfinding enemyPathfinding;
 	private GameObject player;
 	[SerializeField] private float chaseRadius = 5f;
+	[SerializeField] private float stopDuration = 2f; 
 
 	private void Awake()
 	{
@@ -43,6 +45,35 @@ public class EnemyAi : MonoBehaviour
 	{
 		float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
+		switch (state)
+		{
+			case State.Roaming:
+				if (distanceToPlayer < chaseRadius)
+				{
+					state = State.Chasing;
+					StopCoroutine(RoamingRoutine());
+				}
+				break;
+
+			case State.Chasing:
+				if (distanceToPlayer > chaseRadius)
+				{
+					state = State.Stopped;
+					enemyPathfinding.Stop();
+					StartCoroutine(StopRoutine());
+				}
+				else
+				{
+					enemyPathfinding.MoveTo(player.transform.position);
+				}
+				break;
+
+			case State.Stopped:
+				break;
+		}
+
+		/*float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+
 		if (state == State.Roaming && distanceToPlayer < chaseRadius)
 		{
 			state = State.Chasing;
@@ -51,13 +82,14 @@ public class EnemyAi : MonoBehaviour
 		else if (state == State.Chasing && distanceToPlayer > chaseRadius)
 		{
 			state = State.Roaming;
+			enemyPathfinding.Stop();
 			StartCoroutine(RoamingRoutine());
 		}
 
 		if (state == State.Chasing)
 		{
 			enemyPathfinding.MoveTo(player.transform.position);
-		}
+		}*/
 	}
 
 	private IEnumerator RoamingRoutine()
@@ -67,6 +99,16 @@ public class EnemyAi : MonoBehaviour
 			Vector2 roamPosition = GetRoamingPosition();
 			enemyPathfinding.MoveTo(roamPosition);
 			yield return new WaitForSeconds(2f);
+		}
+	}
+
+	private IEnumerator StopRoutine()
+	{
+		yield return new WaitForSeconds(stopDuration);
+		if (state == State.Stopped)
+		{
+			state = State.Roaming;
+			StartCoroutine(RoamingRoutine());
 		}
 	}
 
