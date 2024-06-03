@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class EnemyAi : MonoBehaviour
 {
-    private enum State
-    {
-        roaming,
-        chasing
-    }
+	private enum State
+	{
+		Roaming,
+		Chasing
+	}
 
-    private State state;
-    private EnemyPathfinding enemyPathfinding;
-    private GameObject player;
-    [SerializeField] private float chaseRadius = 5f;
+	private State state;
+	private EnemyPathfinding enemyPathfinding;
+	private GameObject player;
+	[SerializeField] private float chaseRadius = 5f;
 
 	private void Awake()
 	{
@@ -31,7 +31,7 @@ public class EnemyAi : MonoBehaviour
 			return;
 		}
 
-		state = State.roaming;
+		state = State.Roaming;
 	}
 
 	private void Start()
@@ -41,40 +41,38 @@ public class EnemyAi : MonoBehaviour
 
 	private void Update()
 	{
-		if (state == State.roaming)
+		float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+
+		if (state == State.Roaming && distanceToPlayer < chaseRadius)
 		{
-			float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-			if (distanceToPlayer < chaseRadius)
-			{
-				state = State.chasing;
-			}
+			state = State.Chasing;
+			StopCoroutine(RoamingRoutine());
 		}
-		else if (state == State.chasing)
+		else if (state == State.Chasing && distanceToPlayer > chaseRadius)
 		{
-			float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-			if (distanceToPlayer > chaseRadius)
-			{
-				state = State.roaming;
-			}
-			else
-			{
-				enemyPathfinding.MoveTo(player.transform.position);
-			}
+			state = State.Roaming;
+			StartCoroutine(RoamingRoutine());
+		}
+
+		if (state == State.Chasing)
+		{
+			enemyPathfinding.MoveTo(player.transform.position);
 		}
 	}
 
 	private IEnumerator RoamingRoutine()
-    {
-        while (state == State.roaming)
-        {
-            Vector2 roamPosition = GetRoamingPosition();
-            enemyPathfinding.MoveTo(roamPosition);
-            yield return new WaitForSeconds(2f);
-        }
-    }
+	{
+		while (state == State.Roaming)
+		{
+			Vector2 roamPosition = GetRoamingPosition();
+			enemyPathfinding.MoveTo(roamPosition);
+			yield return new WaitForSeconds(2f);
+		}
+	}
 
-    private Vector2 GetRoamingPosition()
-    {
-        return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-    }
+	private Vector2 GetRoamingPosition()
+	{
+		Vector2 roamDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+		return (Vector2)transform.position + roamDirection;
+	}
 }
