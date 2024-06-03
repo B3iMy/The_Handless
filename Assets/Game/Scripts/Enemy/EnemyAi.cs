@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class EnemyAi : MonoBehaviour
@@ -15,7 +14,10 @@ public class EnemyAi : MonoBehaviour
 	private EnemyPathfinding enemyPathfinding;
 	private GameObject player;
 	[SerializeField] private float chaseRadius = 5f;
-	[SerializeField] private float stopDuration = 2f; 
+	[SerializeField] private float stopDuration = 2f;
+	[SerializeField] private float wanderRadius = 5f;
+	[SerializeField] private float wanderDistance = 2f;
+	[SerializeField] private float wanderInterval = 2f;
 
 	private void Awake()
 	{
@@ -43,11 +45,18 @@ public class EnemyAi : MonoBehaviour
 
 	private void Update()
 	{
+		if (player == null)
+		{
+			Debug.LogError("Player is still null in Update");
+			return;
+		}
+
 		float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
 		switch (state)
 		{
 			case State.Roaming:
+				// Khi trong trạng thái Roaming, triển khai hành vi Wander
 				if (distanceToPlayer < chaseRadius)
 				{
 					state = State.Chasing;
@@ -64,23 +73,23 @@ public class EnemyAi : MonoBehaviour
 				}
 				else
 				{
-					enemyPathfinding.MoveTo(player.transform.position);
+					// Khi trong trạng thái Chasing, triển khai hành vi Seek để đuổi theo Player
+					enemyPathfinding.Seek(player.transform);
 				}
 				break;
 
 			case State.Stopped:
 				break;
 		}
-
 	}
 
 	private IEnumerator RoamingRoutine()
 	{
 		while (state == State.Roaming)
 		{
-			Vector2 roamPosition = GetRoamingPosition();
-			enemyPathfinding.MoveTo(roamPosition);
-			yield return new WaitForSeconds(2f);
+			// Trạng thái Roaming, tiếp tục Wander
+			enemyPathfinding.Wander(transform.position, wanderRadius, wanderDistance);
+			yield return new WaitForSeconds(wanderInterval);
 		}
 	}
 
@@ -92,11 +101,5 @@ public class EnemyAi : MonoBehaviour
 			state = State.Roaming;
 			StartCoroutine(RoamingRoutine());
 		}
-	}
-
-	private Vector2 GetRoamingPosition()
-	{
-		Vector2 roamDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-		return (Vector2)transform.position + roamDirection;
 	}
 }
