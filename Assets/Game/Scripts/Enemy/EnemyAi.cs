@@ -72,24 +72,6 @@ public class EnemyAi : MonoBehaviour
 				break;
 		}
 
-		/*float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-
-		if (state == State.Roaming && distanceToPlayer < chaseRadius)
-		{
-			state = State.Chasing;
-			StopCoroutine(RoamingRoutine());
-		}
-		else if (state == State.Chasing && distanceToPlayer > chaseRadius)
-		{
-			state = State.Roaming;
-			enemyPathfinding.Stop();
-			StartCoroutine(RoamingRoutine());
-		}
-
-		if (state == State.Chasing)
-		{
-			enemyPathfinding.MoveTo(player.transform.position);
-		}*/
 	}
 
 	private IEnumerator RoamingRoutine()

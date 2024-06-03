@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class EnemyPathfinding : MonoBehaviour
 {
@@ -44,5 +45,13 @@ public class EnemyPathfinding : MonoBehaviour
 	public void Stop()
 	{
 		moveDir = Vector2.zero;
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.GetComponent<TilemapCollider2D>() != null)
+		{
+			moveDir = -moveDir;
+		}
 	}
 }
