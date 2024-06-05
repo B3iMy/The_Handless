@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Player
   description: 
   hp: 10
-  atk: 1
+  atk: 3
   attack_speed: 0
   speed_movement: 5
   range_attack: 0

@@ -7,6 +7,13 @@ public class PlayerHitbox : MonoBehaviour
 	[SerializeField] private float radius = 1f;
 	[SerializeField] private LayerMask enemyLayer; // Enemy's layer
 
+	[SerializeField] private float attackDelay = 0.5f;
+
+	public EnemyBehaviour enemyHit;
+	public ScriptableEntity entity;
+
+	[SerializeField] private float attackCooldown = 0f;
+
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
@@ -15,10 +22,22 @@ public class PlayerHitbox : MonoBehaviour
 
 	private void Update()
 	{
-		Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radius, enemyLayer);
-		foreach (Collider2D enemy in hitEnemies)
+		attackCooldown -= Time.deltaTime; // Giảm bộ đếm thời gian theo thời gian thực
+
+		if (attackCooldown <= 0f) // Chỉ tấn công khi bộ đếm thời gian bằng hoặc nhỏ hơn 0
 		{
-			Debug.Log("Player tấn công Enemy");
+			Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radius, enemyLayer);
+			foreach (Collider2D enemy in hitEnemies)
+			{
+				enemyHit = enemy.GetComponent<EnemyBehaviour>();
+
+				if (enemyHit != null)
+				{
+					//enemyHit.TakeHit(entity.atk);
+					attackCooldown = attackDelay; // Đặt lại bộ đếm thời gian
+					Debug.Log("Player tấn công Enemy");
+				}
+			}
 		}
 	}
 }
