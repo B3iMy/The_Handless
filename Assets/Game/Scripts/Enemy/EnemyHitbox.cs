@@ -9,7 +9,7 @@ public class Hitbox : MonoBehaviour
 
 	[SerializeField] private float attackDelay = 0.5f;
 
-	public EnemyBehaviour playerHit;
+	public PlayerBehaviour playerHit;
 	public ScriptableEntity entity;
 
 	[SerializeField] private float attackCooldown = 0f;
@@ -29,7 +29,7 @@ public class Hitbox : MonoBehaviour
 			Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radius, playerLayer);
 			foreach (Collider2D enemy in hitEnemies)
 			{
-				playerHit = enemy.GetComponent<EnemyBehaviour>();
+				playerHit = enemy.GetComponent<PlayerBehaviour>();
 
 				if (playerHit != null)
 				{
