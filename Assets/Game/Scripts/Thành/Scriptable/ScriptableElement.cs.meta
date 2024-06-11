@@ -3,7 +3,9 @@ guid: 6ea52d5aa199a044d97db1652c550226
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - normalAttackPrefab: {fileID: 6060170035133248652, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
+  - skillPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

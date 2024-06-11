@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: b32662768aac3b840a2de6424b25a957
+guid: b2ea13c8e9d9c1940ad41a6f2d137c28
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - enemyHit: {instanceID: 0}
-  - entity: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

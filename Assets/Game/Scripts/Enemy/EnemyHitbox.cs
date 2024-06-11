@@ -35,7 +35,7 @@ public class Hitbox : MonoBehaviour
 				{
 					playerHit.TakeHit(entity.atk);
 					attackCooldown = attackDelay; // Đặt lại bộ đếm thời gian
-					Debug.Log("Player tấn công Enemy");
+					//Debug.Log("Player tấn công Enemy");
 				}
 			}
 		}
