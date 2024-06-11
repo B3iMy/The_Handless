@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
 	[SerializeField] private GameObject enemyPrefab;
 	[SerializeField] private float spawnDelay = 2f;
@@ -16,8 +16,8 @@ public class Spawner : MonoBehaviour
 
 	private IEnumerator SpawnEnemyWithDelay()
 	{
-		yield return new WaitForSeconds(spawnDelay);
-		SpawnEnemy();
+			yield return new WaitForSeconds(spawnDelay);
+			SpawnEnemy();
 	}
 
 	private void SpawnEnemy()
@@ -27,6 +27,7 @@ public class Spawner : MonoBehaviour
 			Random.Range(spawnAreaMin.y, spawnAreaMax.y)
 		);
 
-		Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+		GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+		spawnedEnemy.SetActive(true);
 	}
 }
