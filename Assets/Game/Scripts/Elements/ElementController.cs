@@ -20,15 +20,17 @@ public class currentElementController : MonoBehaviour
 
 	private void HandleInput()
 	{
-		if (Input.GetButtonDown("Fire1") && Time.time - lastAttackTime > attackCooldown)
+		if (Input.GetKeyDown(KeyCode.J) && Time.time - lastAttackTime > attackCooldown)
 		{
 			PerformNormalAttack();
 			lastAttackTime = Time.time;
 			
 		}
 
-		if (Input.GetButtonDown("Fire2") && Time.time - lastSkillTime > skillCooldown)
+		if (Input.GetKeyDown(KeyCode.H) && Time.time - lastSkillTime > skillCooldown)
 		{
+
+			Debug.Log("skill is showing");
 			PerformSkill();
 			lastSkillTime = Time.time;
 		}
