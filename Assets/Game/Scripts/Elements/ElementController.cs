@@ -4,76 +4,32 @@ using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class currentElementController : MonoBehaviour
+public abstract class ElementController : MonoBehaviour
 {
 	public Element currentElement;
-	public Transform attackPoint;
+	public Transform normalAttackPoint;
+	public Transform skillPoint;
+
 	public float attackCooldown = 0.5f;
 	public float skillCooldown = 2f;
+
 	public Button attackButton;
 	public Button skillButton;
-	private float lastAttackTime;
-	private float lastSkillTime;
 
-    private void Start()
-    {
-        attackButton.onClick.AddListener(PerformNormalAttack);
+	protected float lastAttackTime;
+	protected float lastSkillTime;
+
+	protected virtual void Start()
+	{
+		attackButton.onClick.AddListener(PerformNormalAttack);
 		skillButton.onClick.AddListener(PerformSkill);
-
-    }
-
-    private void Update()
-	{
-
-        HandleInput();
 	}
 
-	private void HandleInput()
+	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Space) && Time.time - lastAttackTime > attackCooldown)
-		{
-			PerformNormalAttack();
-			lastAttackTime = Time.time;
-			
-		}
-
-		if (Input.GetKeyDown(KeyCode.W) && Time.time - lastSkillTime > skillCooldown)
-		{
-
-			Debug.Log("skill is showing");
-			PerformSkill();
-			lastSkillTime = Time.time;
-		}
 	}
 
-	private void PerformNormalAttack()
-	{
-		if (currentElement != null && currentElement.normalAttackPrefab != null)
-		{
-			GameObject attack = Instantiate(currentElement.normalAttackPrefab, attackPoint.position, attackPoint.rotation);
-			Projectile projectile = attack.GetComponent<Projectile>();
-			if (projectile != null)
-			{
-				Vector2 direction = attackPoint.right;
-				projectile.Initialize(direction, currentElement.normalAttackSpeed, currentElement.normalAttackDamage);
-			}
-		}
-		else
-		{
-			Debug.LogError("Normal attack prefab or currentElement is null");
-		}
-	}
+	protected abstract void PerformNormalAttack();
 
-	private void PerformSkill()
-	{
-		if (currentElement != null && currentElement.skillPrefab != null)
-		{
-			GameObject skill = Instantiate(currentElement.skillPrefab, attackPoint.position, attackPoint.rotation);
-			Destroy(skill, currentElement.skillDuration);
-		}
-		else
-		{
-			Debug.LogError("Skill prefab or element is null");
-		}
-	}
+	protected abstract void PerformSkill();
 }

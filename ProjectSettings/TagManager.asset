@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - FireBall
+  - EnemyHitbox
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Obstacles
   - Player
   - Enemy
-  - 
-  - 
+  - NormalAttack
+  - Hitbox
   - 
   - 
   - 

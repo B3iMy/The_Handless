@@ -26,19 +26,18 @@ public class Projectile : MonoBehaviour
 		transform.Translate(direction * speed * Time.deltaTime);
 	}
 
-	
 
-	private void OnCollisionEnter2D(Collision2D collision)
+
+	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.tag == "Enemy")
+		// Kiểm tra va chạm với Hitbox có tag "EnemyHitbox"
+		if (collision.gameObject.CompareTag("EnemyHitbox"))
 		{
-
-			EnemyBehaviour enemy = collision.collider.GetComponent<EnemyBehaviour>();
+			EnemyBehaviour enemy = collision.GetComponentInParent<EnemyBehaviour>();
 			if (enemy != null)
 			{
-				// call Enemy take damage and destroy prefabs
+				// Gây sát thương cho Enemy và hủy đạn
 				enemy.TakeHit(damage);
-
 				Destroy(gameObject);
 			}
 		}
