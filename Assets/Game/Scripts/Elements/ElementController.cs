@@ -20,14 +20,14 @@ public class currentElementController : MonoBehaviour
 
 	private void HandleInput()
 	{
-		if (Input.GetKeyDown(KeyCode.J) && Time.time - lastAttackTime > attackCooldown)
+		if (Input.GetKeyDown(KeyCode.Space) && Time.time - lastAttackTime > attackCooldown)
 		{
 			PerformNormalAttack();
 			lastAttackTime = Time.time;
 			
 		}
 
-		if (Input.GetKeyDown(KeyCode.H) && Time.time - lastSkillTime > skillCooldown)
+		if (Input.GetKeyDown(KeyCode.W) && Time.time - lastSkillTime > skillCooldown)
 		{
 
 			Debug.Log("skill is showing");
