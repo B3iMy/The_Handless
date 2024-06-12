@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9158893391734655233}
   - component: {fileID: 2562217330384485157}
   - component: {fileID: 2175302452676404360}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FireBall
   m_TagString: FireBall
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!58 &2562217330384485157
 CircleCollider2D:
   m_ObjectHideFlags: 0

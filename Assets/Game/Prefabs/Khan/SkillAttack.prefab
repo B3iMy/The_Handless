@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1237834776398448765}
   - component: {fileID: 1309189553671250009}
   - component: {fileID: 975592293821349262}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FireWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 5456461998561126625}
   - component: {fileID: 5531618260371608395}
   - component: {fileID: 18814136614602706}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FireWall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 2803587021499164788}
   - component: {fileID: 8439412318012622403}
   - component: {fileID: 8359410745314199796}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FireWall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +424,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 1969591274321484013}
   - component: {fileID: 8491896874758294479}
   - component: {fileID: 8842393971121464834}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SkillAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 6389498904761466029}
   - component: {fileID: 6613817461842488142}
   - component: {fileID: 2200667967888439347}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FireWall (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -711,7 +711,7 @@ GameObject:
   - component: {fileID: 3845997762830538067}
   - component: {fileID: 6094428603652383393}
   - component: {fileID: 3885951756175010795}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FireWall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -827,7 +827,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -859,7 +859,7 @@ GameObject:
   - component: {fileID: 8300698009811278177}
   - component: {fileID: 8818265301222838991}
   - component: {fileID: 2116015774561277753}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FireWall (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -975,7 +975,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 8527613735717339168}
   - component: {fileID: 1630366568738367572}
   - component: {fileID: 2369321147025271995}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FireWall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1123,7 +1123,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

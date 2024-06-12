@@ -647,7 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32662768aac3b840a2de6424b25a957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
+  radius: 1
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -655,8 +655,8 @@ MonoBehaviour:
   playerHit: {fileID: 0}
   entity: {fileID: 11400000, guid: 9aa95dd17b06741429de9dff82b3c526, type: 2}
   attackCooldown: 0
---- !u!58 &225280596
-CircleCollider2D:
+--- !u!61 &225280596
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -687,9 +687,19 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03193283, y: 0.123376295}
+  m_Offset: {x: 0.04111837, y: 0.17991638}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.33598176
+  m_Size: {x: 0.72775686, y: 0.89516044}
+  m_EdgeRadius: 0
 --- !u!1 &429679747
 GameObject:
   m_ObjectHideFlags: 0
@@ -3823,7 +3833,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1200641873}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -4670,7 +4680,7 @@ Transform:
   m_GameObject: {fileID: 3586928302469579146}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.66, y: -4.32, z: -0.032880485}
+  m_LocalPosition: {x: -15.07, y: -3.31, z: -0.032880485}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4812,8 +4822,8 @@ GameObject:
   - component: {fileID: 3870129490769810512}
   - component: {fileID: 4023760337038958299}
   - component: {fileID: 1827986567}
-  - component: {fileID: 4023760337038958300}
   - component: {fileID: 4023760337038958303}
+  - component: {fileID: 4023760337038958300}
   - component: {fileID: 4023760337038958302}
   - component: {fileID: 4023760337038958301}
   m_Layer: 9
@@ -4822,7 +4832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3863620188799749220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5153,7 +5163,7 @@ RectTransform:
   m_Father: {fileID: 1834342227605898032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5183,34 +5193,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1145119043}
     m_Modifications:
-    - target: {fileID: 2175302452676404360, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: entity
-      value: 
-      objectReference: {fileID: 11400000, guid: 9aa95dd17b06741429de9dff82b3c526, type: 2}
-    - target: {fileID: 2175302452676404360, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: radius
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2175302452676404360, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: enemyHit
-      value: 
-      objectReference: {fileID: 4023760337038958299}
-    - target: {fileID: 2175302452676404360, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: enemyLayer.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 2562217330384485157, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2562217330384485157, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: m_ExcludeLayers.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
-    - target: {fileID: 2562217330384485157, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4338803181288186735, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.8200006
@@ -5254,26 +5236,6 @@ PrefabInstance:
     - target: {fileID: 6060170035133248652, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
       propertyPath: m_Name
       value: FireBall
-      objectReference: {fileID: 0}
-    - target: {fileID: 6060170035133248652, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6060170035133248652, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: m_TagString
-      value: FireBall
-      objectReference: {fileID: 0}
-    - target: {fileID: 9158893391734655233, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: m_Constraints
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9158893391734655233, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: m_ExcludeLayers.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9158893391734655233, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
