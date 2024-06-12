@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea52d5aa199a044d97db1652c550226, type: 3}
   m_Name: WindElement
   m_EditorClassIdentifier: 
-  normalAttackPrefab: {fileID: 6060170035133248652, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
+  normalAttackPrefab: {fileID: 1019480068096796, guid: 1740469607c5ef74a9dce354e6c48998, type: 3}
   normalAttackSpeed: 10
   normalAttackDamage: 10
   skillPrefab: {fileID: 0}
