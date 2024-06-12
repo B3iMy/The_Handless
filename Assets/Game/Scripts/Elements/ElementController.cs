@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class currentElementController : MonoBehaviour
 {
@@ -9,13 +10,22 @@ public class currentElementController : MonoBehaviour
 	public Transform attackPoint;
 	public float attackCooldown = 0.5f;
 	public float skillCooldown = 2f;
-
+	public Button attackButton;
+	public Button skillButton;
 	private float lastAttackTime;
 	private float lastSkillTime;
 
-	private void Update()
+    private void Start()
+    {
+        attackButton.onClick.AddListener(PerformNormalAttack);
+		skillButton.onClick.AddListener(PerformSkill);
+
+    }
+
+    private void Update()
 	{
-		HandleInput();
+
+        HandleInput();
 	}
 
 	private void HandleInput()
