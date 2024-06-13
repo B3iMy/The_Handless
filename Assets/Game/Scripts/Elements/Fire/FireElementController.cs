@@ -1,5 +1,6 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FireElementController : ElementController
@@ -33,6 +34,15 @@ public class FireElementController : ElementController
 			if (currentElement != null && currentElement.skillPrefab != null)
 			{
 				GameObject skill = Instantiate(currentElement.skillPrefab, skillPoint.position, skillPoint.rotation);
+
+				// Add FireWallUnit component to each child of the skill (FireWall)
+				FireWallUnit[] units = skill.GetComponentsInChildren<FireWallUnit>();
+				foreach (var unit in units)
+				{
+					
+					unit.damage = currentElement.skillDamage;
+				}
+
 				Destroy(skill, currentElement.skillDuration);
 				lastSkillTime = Time.time;
 			}

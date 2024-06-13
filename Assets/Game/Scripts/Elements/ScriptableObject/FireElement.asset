@@ -16,4 +16,5 @@ MonoBehaviour:
   normalAttackSpeed: 10
   normalAttackDamage: 1
   skillPrefab: {fileID: 6908813747367534843, guid: 976a5723a46d5f64fb674d59af701a54, type: 3}
+  skillDamage: 1
   skillDuration: 5
