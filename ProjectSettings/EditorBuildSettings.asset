@@ -5,7 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Game/Scenes/Trung's/Loading/Loading.unity
+    guid: 3b4c4325186a66343b415a0131784478
+  - enabled: 1
+    path: Assets/Game/Scenes/Trung's/CreateAndJoin.unity
+    guid: 560fb733ea4066a46b2635225afbcb9f
+  - enabled: 1
+    path: Assets/Game/Scenes/Trung's/GamePlay.unity
+    guid: 68341e5c8aa767e408c1a279b8259eb5
+  m_configObjects:
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 5202eb89239d8b845948ea53d76e7eff, type: 2}
