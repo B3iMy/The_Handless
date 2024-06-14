@@ -289,7 +289,7 @@ Transform:
   m_GameObject: {fileID: 34951335}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.28, y: -2.02, z: 0}
+  m_LocalPosition: {x: -19.09, y: -2.09, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -651,7 +651,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
-  attackDelay: 0.5
+  attackDelay: 2
   playerHit: {fileID: 0}
   entity: {fileID: 11400000, guid: 9aa95dd17b06741429de9dff82b3c526, type: 2}
   attackCooldown: 0
@@ -4413,6 +4413,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkillAttack
       objectReference: {fileID: 0}
+    - target: {fileID: 6908813747367534843, guid: 976a5723a46d5f64fb674d59af701a54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4832,7 +4836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3863620188799749220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4943,9 +4947,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 11400000, guid: 9aa95dd17b06741429de9dff82b3c526, type: 2}
-  Hitpoints: 0
-  MaxHitpoints: 5
-  Healthbar: {fileID: 8571862576975601934}
+  hitpoints: 0
+  maxHitpoints: 0
+  healthbar: {fileID: 8571862576975601934}
 --- !u!70 &4023760337038958300
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -4993,7 +4997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92544335f5ed0eb46bd6b659bff88047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  entity: {fileID: 11400000, guid: 9aa95dd17b06741429de9dff82b3c526, type: 2}
 --- !u!114 &4023760337038958302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5007,6 +5011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseRadius: 10
+  attackRadius: 3
   stopDuration: 2
   wanderRadius: 0.01
   wanderDistance: 0.01
@@ -5163,7 +5168,7 @@ RectTransform:
   m_Father: {fileID: 1834342227605898032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

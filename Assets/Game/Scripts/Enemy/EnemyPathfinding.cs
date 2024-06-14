@@ -5,7 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class EnemyPathfinding : MonoBehaviour
 {
-	[SerializeField] private float moveSpeed = 2f;
+	[SerializeField] protected ScriptableEntity entity;
+
+	private float moveSpeed;
 	private Rigidbody2D rb;
 	private Vector2 moveDir;
 	private Vector3 originalScale;
@@ -26,6 +28,15 @@ public class EnemyPathfinding : MonoBehaviour
 
 		// Xác định layer của các chướng ngại vật
 		obstacleLayer = LayerMask.GetMask("Obstacles");
+
+		if (entity != null)
+		{
+			moveSpeed = entity.speed_movement;
+		}
+		else
+		{
+			Debug.LogError("ScriptableEntity is not assigned on " + gameObject.name);
+		}
 	}
 
 	private void FixedUpdate()

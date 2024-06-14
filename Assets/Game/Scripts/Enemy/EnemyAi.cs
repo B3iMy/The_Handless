@@ -3,17 +3,20 @@ using UnityEngine;
 
 public class EnemyAi : MonoBehaviour
 {
-	private enum State
+	public enum State
 	{
 		Roaming,
 		Chasing,
+		Attacking,
 		Stopped
 	}
 
 	private State state;
 	private EnemyPathfinding enemyPathfinding;
 	private GameObject player;
+
 	[SerializeField] private float chaseRadius = 5f;
+	[SerializeField] private float attackRadius = 1f; // New variable for attack radius
 	[SerializeField] private float stopDuration = 2f;
 	[SerializeField] private float wanderRadius = 5f;
 	[SerializeField] private float wanderDistance = 2f;
@@ -21,20 +24,7 @@ public class EnemyAi : MonoBehaviour
 
 	private void Awake()
 	{
-		enemyPathfinding = GetComponent<EnemyPathfinding>();
-		if (enemyPathfinding == null)
-		{
-			Debug.LogError("EnemyPathfinding component not found on " + gameObject.name);
-			return;
-		}
-
-		player = GameObject.FindGameObjectWithTag("Player");
-		if (player == null)
-		{
-			Debug.LogError("Player not found in the scene.");
-			return;
-		}
-
+		InitializeComponents();
 		state = State.Roaming;
 	}
 
@@ -45,41 +35,73 @@ public class EnemyAi : MonoBehaviour
 
 	private void Update()
 	{
-		if (player == null)
-		{
-			Debug.LogError("Player is still null in Update");
-			return;
-		}
+		if (player == null) return;
 
 		float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+		UpdateStateBasedOnDistance(distanceToPlayer);
+	}
 
+	private void InitializeComponents()
+	{
+		enemyPathfinding = GetComponent<EnemyPathfinding>();
+		if (enemyPathfinding == null)
+		{
+			Debug.LogError("EnemyPathfinding component not found on " + gameObject.name);
+		}
+
+		player = GameObject.FindGameObjectWithTag("Player");
+		if (player == null)
+		{
+			Debug.LogError("Player not found in the scene.");
+		}
+	}
+
+	private void UpdateStateBasedOnDistance(float distanceToPlayer)
+	{
 		switch (state)
 		{
 			case State.Roaming:
-				// Khi trong trạng thái Roaming, triển khai hành vi Wander
 				if (distanceToPlayer < chaseRadius)
 				{
-					state = State.Chasing;
-					StopCoroutine(RoamingRoutine());
+					SetState(State.Chasing);
 				}
 				break;
-
 			case State.Chasing:
 				if (distanceToPlayer > chaseRadius)
 				{
-					state = State.Stopped;
-					enemyPathfinding.Stop();
+					SetState(State.Stopped);
 					StartCoroutine(StopRoutine());
+				}
+				else if (distanceToPlayer <= attackRadius) // Transition to Attacking if close enough
+				{
+					SetState(State.Attacking);
 				}
 				else
 				{
-					// Khi trong trạng thái Chasing, triển khai hành vi Seek để đuổi theo Player
 					enemyPathfinding.Seek(player.transform);
 				}
 				break;
-
+			case State.Attacking:
+				if (distanceToPlayer > attackRadius)
+				{
+					SetState(State.Chasing);
+				}
+				break;
 			case State.Stopped:
 				break;
+		}
+	}
+
+	private void SetState(State newState)
+	{
+		state = newState;
+		if (newState == State.Roaming)
+		{
+			StartCoroutine(RoamingRoutine());
+		}
+		else if (newState == State.Stopped)
+		{
+			enemyPathfinding.Stop();
 		}
 	}
 
@@ -87,7 +109,6 @@ public class EnemyAi : MonoBehaviour
 	{
 		while (state == State.Roaming)
 		{
-			// Trạng thái Roaming, tiếp tục Wander
 			enemyPathfinding.Wander(transform.position, wanderRadius, wanderDistance);
 			yield return new WaitForSeconds(wanderInterval);
 		}
@@ -98,8 +119,12 @@ public class EnemyAi : MonoBehaviour
 		yield return new WaitForSeconds(stopDuration);
 		if (state == State.Stopped)
 		{
-			state = State.Roaming;
-			StartCoroutine(RoamingRoutine());
+			SetState(State.Roaming);
 		}
+	}
+
+	public State GetCurrentState()
+	{
+		return state;
 	}
 }

@@ -1,20 +1,35 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
 	public ScriptableEntity entity;
 
-	public float Hitpoints;
-	public float MaxHitpoints;
-	public HealthBarBehaviour Healthbar;
+	[SerializeField] protected float hitpoints;
+	[SerializeField] protected float maxHitpoints;
+	[SerializeField] protected HealthBarBehaviour healthbar;
 
-	void Start()
+	private void Start()
+	{
+		InitializeEnemy();
+	}
+
+	private void InitializeEnemy()
 	{
 		if (entity != null)
 		{
-			MaxHitpoints = entity.hp;
-			Hitpoints = MaxHitpoints;
-			UpdateHealthBar();
+			maxHitpoints = entity.hp;
+			hitpoints = maxHitpoints;
+			healthbar = GetComponentInChildren<HealthBarBehaviour>();
+
+			if (healthbar != null)
+			{
+				healthbar.SetHealth(hitpoints, maxHitpoints);
+				healthbar.gameObject.SetActive(true);
+			}
+			else
+			{
+				Debug.LogError("Healthbar component not found on child GameObject!");
+			}
 		}
 		else
 		{
@@ -24,11 +39,11 @@ public class EnemyBehaviour : MonoBehaviour
 
 	public void TakeHit(float damage)
 	{
-		Hitpoints -= damage;
+		hitpoints -= damage;
 
-		if (Hitpoints <= 0)
+		if (hitpoints <= 0)
 		{
-			Hitpoints = 0;
+			hitpoints = 0;
 			Destroy(gameObject);
 		}
 
@@ -37,14 +52,14 @@ public class EnemyBehaviour : MonoBehaviour
 
 	private void UpdateHealthBar()
 	{
-		if (Healthbar != null)
+		if (healthbar != null)
 		{
-			Healthbar.SetHealth(Hitpoints, MaxHitpoints);
-			Healthbar.gameObject.SetActive(true);
+			healthbar.SetHealth(hitpoints, maxHitpoints);
+			healthbar.gameObject.SetActive(true);
 		}
 		else
 		{
-			Debug.LogError("Healthbar is not assigned!");
+			Debug.LogError("Healthbar component not found on child GameObject!");
 		}
 	}
 }
