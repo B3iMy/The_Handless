@@ -28,37 +28,7 @@ public class FireElementController : ElementController
 		}
 	}
 
-	protected override void PerformSkill()
-	{
-		
-        if (Time.time - lastSkillTime > skillCooldown)
-		{
-            abilityCanvas.enabled = true;
-            abilityCircleImg.enabled = true;
-            Cursor.visible = false;
-            if (currentElement != null && currentElement.skillPrefab != null)
-			{
-				
-
-				GameObject skill = Instantiate(currentElement.skillPrefab, skillPoint.position, skillPoint.rotation);
-
-				// Add FireWallUnit component to each child of the skill (FireWall)
-				FireWallUnit[] units = skill.GetComponentsInChildren<FireWallUnit>();
-				foreach (var unit in units)
-				{
-					
-					unit.damage = currentElement.skillDamage;
-				}
-
-				Destroy(skill, currentElement.skillDuration);
-				lastSkillTime = Time.time;
-			}
-			else
-			{
-				Debug.LogError("Skill prefab or element is null");
-			}
-		}
-	}
+	
 
 
 

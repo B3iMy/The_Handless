@@ -77,7 +77,7 @@ protected abstract void Ability2Canvas(Vector3 worldPosition);
 
 
 protected abstract void PerformNormalAttack();
-    protected abstract void PerformSkill();
+   
 
     protected virtual void OnSkillButtonDown(BaseEventData eventData)
     {
