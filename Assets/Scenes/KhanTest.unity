@@ -351,6 +351,7 @@ MonoBehaviour:
   skillCooldown: 5
   attackButton: {fileID: 585550577}
   skillButton: {fileID: 1844223376}
+<<<<<<< Updated upstream
 --- !u!1 &61459408
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +427,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 61459408}
   m_CullTransparentMesh: 1
+>>>>>>> Stashed changes
+=======
+  abilityPos: {x: 0, y: 0}
+  abilityCanvas: {fileID: 624555552}
+  abilityCircleImg: {fileID: 1751605778}
+  maxAbilityDistance: 7
+  playerTransform: {fileID: 34951340}
+  position: {x: 0, y: 0, z: 0}
+  isAiming: 0
 >>>>>>> Stashed changes
 --- !u!1001 &108016933
 PrefabInstance:
