@@ -15,6 +15,7 @@ public abstract class ElementController : MonoBehaviour
 
     public float attackCooldown = 0.5f;
     public float skillCooldown = 2f;
+    
 
     public Button attackButton;
     public Button skillButton;

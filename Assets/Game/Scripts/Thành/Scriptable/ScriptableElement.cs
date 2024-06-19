@@ -12,4 +12,5 @@ public class Element : ScriptableObject
 	public GameObject skillPrefab;
 	public float skillDamage = 10f;
 	public float skillDuration = 2f;
+    public float skillSpeed = 10f;
 }

@@ -65,7 +65,7 @@ public class FireElementController : ElementController
             GameObject skill = Instantiate(currentElement.skillPrefab, position, Quaternion.identity);
 
             // Add FireWallUnit component to each child of the skill (FireWall)
-            FireWallUnit[] units = skill.GetComponentsInChildren<FireWallUnit>();
+            WindWallUnit[] units = skill.GetComponentsInChildren<WindWallUnit>();
             foreach (var unit in units)
             {
                 unit.damage = currentElement.skillDamage;

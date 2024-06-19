@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireWallUnit : MonoBehaviour
+public class WindWallUnit : MonoBehaviour
 {
 	public float damage;
 
