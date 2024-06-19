@@ -10,19 +10,20 @@ public class GolemBehaviour : MonoBehaviour
 
 	private Animator animator;
 	private Rigidbody2D rb;
-	private EnemyAi enemyAi;
-
+	private EnemyMovement enemyMovement;
 	private Transform playerTransform;
+
+	private Vector3 originalScale; // To store the original scale
 
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
-		enemyAi = GetComponent<EnemyAi>();
+		enemyMovement = GetComponent<EnemyMovement>();
 
-		if (enemyAi == null)
+		if (enemyMovement == null)
 		{
-			Debug.LogError("EnemyAi component not found on " + gameObject.name);
+			Debug.LogError("EnemyMovement component not found on " + gameObject.name);
 		}
 
 		playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -30,6 +31,8 @@ public class GolemBehaviour : MonoBehaviour
 		{
 			Debug.LogError("Player not found in the scene.");
 		}
+
+		originalScale = transform.localScale; // Store the original scale
 	}
 
 	private void Start()
@@ -73,7 +76,7 @@ public class GolemBehaviour : MonoBehaviour
 
 		// Stop normal movement while using the skill
 		rb.velocity = Vector2.zero;
-		enemyAi.enabled = false;
+		enemyMovement.enabled = false;
 	}
 
 	private void EndWhirlwind()
@@ -84,7 +87,7 @@ public class GolemBehaviour : MonoBehaviour
 		animator.SetTrigger("WhirlwindEnd");
 
 		// Resume normal behavior
-		enemyAi.enabled = true;
+		enemyMovement.enabled = true;
 	}
 
 	private void WhirlwindMove()
@@ -94,6 +97,21 @@ public class GolemBehaviour : MonoBehaviour
 			// Calculate direction towards player
 			Vector2 direction = (playerTransform.position - transform.position).normalized;
 			rb.velocity = direction * stats.whirlwindSpeed;
+
+			// Flip the GameObject based on movement direction
+			Flip(direction);
+		}
+	}
+
+	private void Flip(Vector2 direction)
+	{
+		if (direction.x < 0 && transform.localScale.x > 0)
+		{
+			transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
+		}
+		else if (direction.x > 0 && transform.localScale.x < 0)
+		{
+			transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
 		}
 	}
 

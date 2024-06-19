@@ -9707,11 +9707,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32662768aac3b840a2de6424b25a957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
+  radius: 5
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
-  entity: {fileID: 0}
+  damageDelay: 2
+  golemBehaviour: {fileID: 0}
 --- !u!1 &1837009709
 GameObject:
   m_ObjectHideFlags: 0
@@ -9897,7 +9898,7 @@ RectTransform:
   m_Father: {fileID: 2004472281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10829,7 +10830,6 @@ GameObject:
   - component: {fileID: 8771821434107962638}
   - component: {fileID: 8771821434107962640}
   - component: {fileID: 8771821434107962639}
-  - component: {fileID: 8771821434107962644}
   - component: {fileID: 8771821434107962643}
   m_Layer: 9
   m_Name: Golem
@@ -10837,7 +10837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3695171998611949199
 Transform:
   m_ObjectHideFlags: 0
@@ -11232,28 +11232,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3695171998611949198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92544335f5ed0eb46bd6b659bff88047, type: 3}
+  m_Script: {fileID: 11500000, guid: 905e01a209872a34aa0ca50fe1612291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 11400000, guid: ccec81dec79e21542b83bd913f609271, type: 2}
---- !u!114 &8771821434107962644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3695171998611949198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad56226043c66f04b99249fcd48bdd9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chaseRadius: 20
-  attackRadius: 3
+  chaseRadius: 30
+  stopRadius: 0
   stopDuration: 2
-  wanderRadius: 2
-  wanderDistance: 2
-  wanderInterval: 1
+  wanderRadius: 5
+  wanderInterval: 2
+  moveSpeed: 1
 --- !u!4 &8908304636344612812
 Transform:
   m_ObjectHideFlags: 0

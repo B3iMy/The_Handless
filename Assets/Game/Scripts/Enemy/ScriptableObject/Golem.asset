@@ -18,8 +18,8 @@ MonoBehaviour:
   atk: 1
   attack_speed: 1
   speed_movement: 3
-  range_attack: 0
+  range_attack: 3
   whirlwind_duration: 2
   whirlwind_cooldown: 4
-  whirlwindSpeed: 10
+  whirlwindSpeed: 7
   prefab_animation: {fileID: 0}
