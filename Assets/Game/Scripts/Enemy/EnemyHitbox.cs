@@ -1,50 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Hitbox : MonoBehaviour
+public class EnemyHitbox : MonoBehaviour
 {
-	[SerializeField] private float radius = 1f;
-	[SerializeField] private LayerMask playerLayer; // Player layer
+    [SerializeField] private float radius = 1f;
+    [SerializeField] private LayerMask playerLayer;
 
-	[SerializeField] private float attackDelay = 0.5f;
+    public ScriptableEntity entity;
+    private GolemBehaviour golemBehaviour;
 
-	public PlayerBehaviour playerHit;
-	public ScriptableEntity entity;
+    private Animator animator;
 
-	[SerializeField] private float attackCooldown = 0f;
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
 
-	private Animator animator;
+    private void Awake()
+    {
+        animator = GetComponentInParent<Animator>();
+        golemBehaviour = GetComponentInParent<GolemBehaviour>();
+    }
 
-	private void OnDrawGizmos()
-	{
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, radius);
-	}
+    private void Update()
+    {
+        if (golemBehaviour != null && golemBehaviour.isUsingSkill)
+        {
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radius, playerLayer);
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                PlayerBehaviour playerHit = enemy.GetComponent<PlayerBehaviour>();
 
-	private void Awake()
-	{
-		animator = GetComponentInParent<Animator>(); // Get the Animator from the parent
-	}
-
-	private void Update()
-	{
-		attackCooldown -= Time.deltaTime;
-
-		if (attackCooldown <= 0f)
-		{
-			Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radius, playerLayer);
-			foreach (Collider2D enemy in hitEnemies)
-			{
-				playerHit = enemy.GetComponent<PlayerBehaviour>();
-
-				if (playerHit != null)
-				{
-					animator.SetTrigger("Attack");
-					playerHit.TakeHit(entity.atk);
-					attackCooldown = attackDelay;
-				}
-			}
-		}
-	}
+                if (playerHit != null)
+                {
+                    playerHit.TakeHit(entity.atk);
+                }
+            }
+        }
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class EnemyPathfinding : MonoBehaviour
 {
-	[SerializeField] protected ScriptableEntity entity;
+	[SerializeField] protected Golem entity;
 
 	private float moveSpeed;
 	private Rigidbody2D rb;
