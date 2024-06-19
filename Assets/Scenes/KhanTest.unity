@@ -11251,9 +11251,9 @@ MonoBehaviour:
   chaseRadius: 20
   attackRadius: 3
   stopDuration: 2
-  wanderRadius: 0.1
-  wanderDistance: 0.1
-  wanderInterval: 0.5
+  wanderRadius: 2
+  wanderDistance: 2
+  wanderInterval: 1
 --- !u!4 &8908304636344612812
 Transform:
   m_ObjectHideFlags: 0
