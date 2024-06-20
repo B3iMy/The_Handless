@@ -3,7 +3,19 @@ guid: dbd85d62633df624293f33ce0d3c088b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
+<<<<<<< HEAD
   defaultReferences: []
+=======
+  defaultReferences:
+  - currentElement: {instanceID: 0}
+  - normalAttackPoint: {instanceID: 0}
+  - skillPoint: {instanceID: 0}
+  - attackButton: {instanceID: 0}
+  - skillButton: {instanceID: 0}
+  - abilityCanvas: {instanceID: 0}
+  - abilityCircleImg: {instanceID: 0}
+  - playerTranform: {instanceID: 0}
+>>>>>>> Khánh
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -3,7 +3,13 @@ guid: b32662768aac3b840a2de6424b25a957
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
+<<<<<<< HEAD
   defaultReferences: []
+=======
+  defaultReferences:
+  - enemyHit: {instanceID: 0}
+  - entity: {instanceID: 0}
+>>>>>>> Khánh
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -4,7 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - vacham
+=======
+  - Enemy
+  - FireBall
+  - EnemyHitbox
+>>>>>>> Khánh
   layers:
   - Default
   - TransparentFX
@@ -12,13 +18,13 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - wall
+  - Obstacles
+  - Player
+  - Enemy
+  - NormalAttack
+  - Hitbox
+  - Skill
   - 
   - 
   - 

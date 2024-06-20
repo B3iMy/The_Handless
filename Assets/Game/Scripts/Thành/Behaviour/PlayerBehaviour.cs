@@ -14,6 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
         MaxHitpoints = entity.hp;
         Hitpoints = MaxHitpoints;
         Healthbar.SetHealth(Hitpoints, MaxHitpoints);
+<<<<<<< HEAD
         // Add SphereCollider if not already present
         //SphereCollider collider = gameObject.GetComponent<SphereCollider>();
         //if (collider == null)
@@ -22,6 +23,8 @@ public class PlayerBehaviour : MonoBehaviour
         //}
 
         //collider.isTrigger = true; // Set as trigger if you want to use OnTriggerEnter instead of OnCollisionEnter
+=======
+>>>>>>> Khánh
     }
     public void TakeHit(float damage)
     {
