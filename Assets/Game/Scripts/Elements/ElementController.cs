@@ -94,9 +94,13 @@ protected abstract void PerformNormalAttack();
 
     protected virtual void OnSkillButtonUp(BaseEventData eventData)
     {
+        PointerEventData pointerData = eventData as PointerEventData;
         if (isAiming)
         {
-            ActivateSkill(position);
+            Vector3 pointerPosition = pointerData.position;
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(pointerPosition);
+            worldPosition.z = 0; // Set z to 0 since we are in 2D
+            ActivateSkill(worldPosition);
             isAiming = false;
             abilityCanvas.enabled = false;
             abilityCircleImg.enabled = false;

@@ -34,20 +34,7 @@ public class FireElementController : ElementController
 
     protected override void Ability2Canvas(Vector3 worldPosition)
     {
-        //int layerMask = ~LayerMask.GetMask("Player");
-
-        //hit = Physics2D.Raycast((Vector2)playerTransform.position, ((Vector2)worldPosition - (Vector2)playerTransform.position).normalized, maxAbilityDistance, layerMask);
-        //if (hit.collider != null && hit.collider.gameObject != this.gameObject)
-        //{
-        //    position = hit.point;
-
-        //    Vector2 hitPosDir = ((Vector2)hit.point - (Vector2)playerTransform.position).normalized;
-        //    float distance = Vector2.Distance(hit.point, playerTransform.position);
-        //    distance = Mathf.Min(distance, maxAbilityDistance);
-        //    Vector2 newHitpoint = (Vector2)playerTransform.position + hitPosDir * distance;
-        //    abilityCanvas.transform.position = new Vector3(newHitpoint.x, newHitpoint.y, abilityCanvas.transform.position.z);
-        //}
-        // Calculate direction and distance directly from playerTransform to the worldPosition
+        
         Vector2 direction = ((Vector2)worldPosition - (Vector2)playerTransform.position).normalized;
         float distance = Vector2.Distance(worldPosition, playerTransform.position);
         distance = Mathf.Min(distance, maxAbilityDistance);
