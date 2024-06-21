@@ -38,6 +38,7 @@ public class EnemyHitbox : MonoBehaviour
 						// Apply damage via GolemBehaviour's ApplyWhirlwindDamage method
 						golemBehaviour.ApplyWhirlwindDamage();
 						lastDamageTime = Time.time;
+						Debug.Log("Nhan damage tu` Whirl Wind");
 					}
 				}
 			}

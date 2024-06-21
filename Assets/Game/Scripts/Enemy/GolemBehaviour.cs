@@ -15,6 +15,13 @@ public class GolemBehaviour : MonoBehaviour
 
 	private Vector3 originalScale; // To store the original scale
 
+	//Laser setting
+	[SerializeField] private GameObject laserPrefab;
+	[SerializeField] private Transform firePoint; //the point where the laser is fired from
+	[SerializeField] private float laserSpeed = 10f;
+	[SerializeField] private float laserCooldown = 5f;
+	private float lastLaserTime;
+
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
@@ -38,6 +45,7 @@ public class GolemBehaviour : MonoBehaviour
 	private void Start()
 	{
 		skillCooldownTimer = Random.Range(1f, stats.whirlwind_cooldown);
+		lastLaserTime = -laserCooldown; // Initialize so that laser can be fired immediately if needed
 	}
 
 	private void Update()
@@ -62,6 +70,12 @@ public class GolemBehaviour : MonoBehaviour
 			{
 				WhirlwindMove();
 			}
+		}
+
+		// Fire laser if cooldown is over
+		if (Time.time - lastLaserTime >= laserCooldown && !isUsingSkill)
+		{
+			FireLaser();
 		}
 	}
 
@@ -103,18 +117,6 @@ public class GolemBehaviour : MonoBehaviour
 		}
 	}
 
-	private void Flip(Vector2 direction)
-	{
-		if (direction.x < 0 && transform.localScale.x > 0)
-		{
-			transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
-		}
-		else if (direction.x > 0 && transform.localScale.x < 0)
-		{
-			transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
-		}
-	}
-
 	// This method could be called from an animation event or another script
 	public void ApplyWhirlwindDamage()
 	{
@@ -129,6 +131,42 @@ public class GolemBehaviour : MonoBehaviour
 			}
 		}
 	}
+
+	private void FireLaser()
+	{
+		if (firePoint != null && laserPrefab != null)
+		{
+			// Create the laser at the fire point position and rotation
+			GameObject laser = Instantiate(laserPrefab, firePoint.position, firePoint.rotation);
+
+			// Set the velocity of the laser
+			Rigidbody2D laserRb = laser.GetComponent<Rigidbody2D>();
+			if (laserRb != null)
+			{
+				laserRb.velocity = firePoint.right * laserSpeed;
+			}
+			
+			lastLaserTime = Time.time;
+		}
+		else
+		{
+			Debug.LogError("Fire point or laser prefab is not set.");
+		}
+	}
+
+
+	private void Flip(Vector2 direction)
+	{
+		if (direction.x < 0 && transform.localScale.x > 0)
+		{
+			transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
+		}
+		else if (direction.x > 0 && transform.localScale.x < 0)
+		{
+			transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
+		}
+	}
+
 
 	private void OnDrawGizmos()
 	{
