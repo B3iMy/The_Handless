@@ -13,6 +13,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 >>>>>>> Khánh
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
+using Cursor = UnityEngine.Cursor;
+using Image = UnityEngine.UI.Image;
 
 public abstract class ElementController : MonoBehaviour
 {
@@ -77,15 +81,22 @@ public abstract class ElementController : MonoBehaviour
     [SerializeField] protected Image abilityCircleImg;
     [SerializeField] protected float maxAbilityDistance = 7f;
     [SerializeField] protected Transform playerTransform;
-
     [SerializeField] protected Vector3 position;
     protected RaycastHit2D hit;
     [SerializeField] protected bool isAiming = false;
 
+    // Joystick Attack
+    [SerializeField] protected Joystick joystick;
+    protected Vector2 joystickStartPos;
+    protected Vector2 joystickDirection;
+    private bool isDragging = false;
+
     protected virtual void Start()
     {
         attackButton.onClick.AddListener(PerformNormalAttack);
-
+        joystick.OnPointerDownEvent += OnAttackJoystickDown;
+        joystick.OnPointerUpEvent += OnAttackJoystickUp;
+        joystick.OnDragEvent += OnAttackJoystickDrag;
         // Add EventTrigger for skill button
         EventTrigger trigger = skillButton.GetComponent<EventTrigger>();
         if (trigger == null)
@@ -98,6 +109,7 @@ public abstract class ElementController : MonoBehaviour
 
         abilityCircleImg.enabled = false;
         abilityCanvas.enabled = false;
+        joystick.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -119,6 +131,10 @@ public abstract class ElementController : MonoBehaviour
                 Ability2Canvas(worldPosition);
             }
 #endif
+        }
+        if (isDragging)
+        {
+            Vector2 touchPos = joystick.Direction; // Get direction from joystick
         }
     }
 
@@ -176,5 +192,34 @@ protected abstract void PerformNormalAttack();
         entry.callback.AddListener((eventData) => action(eventData));
         trigger.triggers.Add(entry);
     }
+<<<<<<< Updated upstream
 >>>>>>> Khánh
+=======
+    protected virtual void OnAttackJoystickDown(PointerEventData eventData)
+    {
+        Debug.Log("joystick down");
+        isDragging = true;
+    }
+
+    protected virtual void OnAttackJoystickUp(PointerEventData eventData)
+    {
+        isDragging = false;
+        if (Time.time - lastAttackTime > attackCooldown)
+        {
+            PerformNormalAttack();
+        }
+    }
+
+    protected virtual void OnAttackJoystickDrag(PointerEventData eventData)
+    {
+        Debug.Log("Joystick drag");
+        joystickDirection = joystick.Direction;
+        if (joystickDirection.magnitude >= 0.5f)
+        {
+            PerformNormalAttack();
+        }
+    }
+
+
+>>>>>>> Stashed changes
 }

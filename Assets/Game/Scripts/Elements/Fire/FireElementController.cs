@@ -8,25 +8,25 @@ public class FireElementController : ElementController
 {
 	protected override void PerformNormalAttack()
 	{
-		if (Time.time - lastAttackTime > attackCooldown)
-		{
-			if (currentElement != null && currentElement.normalAttackPrefab != null)
-			{
-				GameObject attack = Instantiate(currentElement.normalAttackPrefab, normalAttackPoint.position, normalAttackPoint.rotation);
-				Projectile projectile = attack.GetComponent<Projectile>();
-				if (projectile != null)
-				{
-					Vector2 direction = normalAttackPoint.right;
-					projectile.Initialize(direction, currentElement.normalAttackSpeed, currentElement.normalAttackDamage);
-					lastAttackTime = Time.time;
-				}
-			}
-			else
-			{
-				Debug.LogError("Normal attack prefab or currentElement is null");
-			}
-		}
-	}
+        if (currentElement != null && currentElement.normalAttackPrefab != null)
+        {
+            GameObject attack = Instantiate(currentElement.normalAttackPrefab, normalAttackPoint.position, normalAttackPoint.rotation);
+            Projectile projectile = attack.GetComponent<Projectile>();
+            if (projectile != null)
+            {
+                Vector2 direction = joystickDirection;
+                if (direction == Vector2.zero)
+                {
+                    direction = Vector2.right; // Default direction if joystick direction is zero
+                }
+                projectile.Initialize(direction, currentElement.normalAttackSpeed, currentElement.normalAttackDamage);
+            }
+        }
+        else
+        {
+            Debug.LogError("Normal attack prefab or currentElement is null");
+        }
+    }
 
 	
 
