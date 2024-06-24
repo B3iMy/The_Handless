@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,19 +15,23 @@ public class LaserProjectile : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.CompareTag("Player"))
+		// Check impact to hitbox with tag "EnemyHitbox"
+		if (collision.gameObject.CompareTag("Player"))
 		{
 			PlayerBehaviour player = collision.GetComponentInParent<PlayerBehaviour>();
 			if (player != null)
 			{
-				// Apply damage to the player
+				// take damage and destroy prefabs
 				player.TakeHit(damage);
-				
-				Debug.Log("Nhan damage tu Laser");
-			}
-
-			// Destroy the laser after hitting an object
+				Debug.Log("Player nhan damage laser");
+				Destroy(gameObject);
+			}	
+		}
+		else if (collision.gameObject.CompareTag("Obstacles"))
+		{
 			Destroy(gameObject);
+			Debug.Log("Tram vao Tilemap va bien mat");
+			return;
 		}
 	}
 }

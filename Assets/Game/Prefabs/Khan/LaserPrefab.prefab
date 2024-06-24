@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6324618687329486489}
   - component: {fileID: 7360128794461083882}
   - component: {fileID: 7907549007598052429}
+  - component: {fileID: 7894523269814442451}
   m_Layer: 0
   m_Name: LaserPrefab
   m_TagString: Untagged
@@ -29,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 5478512271435585657}
   serializedVersion: 2
   m_LocalRotation: {x: 0.009162842, y: 0, z: 0, w: 0.99995804}
-  m_LocalPosition: {x: 23.399979, y: -1.0088527, z: 167.02}
-  m_LocalScale: {x: 12, y: 7, z: 0}
+  m_LocalPosition: {x: 24.96, y: 5.48, z: 167.15}
+  m_LocalScale: {x: 3, y: 3, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -95,7 +96,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5478512271435585657}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -113,7 +114,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!61 &7360128794461083882
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -143,10 +144,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.022310793, y: -0.019706376}
+  m_Offset: {x: -0.009546787, y: -0.007832035}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -157,7 +158,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5853784, y: 0.09511556}
+  m_Size: {x: 0.52166325, y: 0.11411451}
   m_EdgeRadius: 0
 --- !u!114 &7907549007598052429
 MonoBehaviour:
@@ -172,4 +173,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  lifetime: 2
+  lifetime: 4
+--- !u!114 &7894523269814442451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5478512271435585657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668ab01f978095c419fe886095797cf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletLife: 6
+  rotation: 0
+  speed: 1
