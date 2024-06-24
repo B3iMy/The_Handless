@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public abstract class ElementController : MonoBehaviour
@@ -17,7 +18,7 @@ public abstract class ElementController : MonoBehaviour
     public float skillCooldown = 2f;
     
 
-    public Button attackButton;
+    //public Button attackButton;
     public Button skillButton;
 
     protected float lastAttackTime;
@@ -27,16 +28,30 @@ public abstract class ElementController : MonoBehaviour
     [SerializeField] protected Vector2 abilityPos;
     [SerializeField] protected Canvas abilityCanvas;
     [SerializeField] protected Image abilityCircleImg;
-    [SerializeField] protected float maxAbilityDistance = 7f;
+    [SerializeField] protected float maxAbilityDistance = 4f;
     [SerializeField] protected Transform playerTransform;
 
     [SerializeField] protected Vector3 position;
     protected RaycastHit2D hit;
     [SerializeField] protected bool isAiming = false;
 
+    // Joystick Attack
+    [SerializeField] protected FixedJoystick joystick;
+    protected Vector2 joystickStartPos;
+    protected Vector2 joystickDirection;
+    protected Vector2 attackDirection;
+    [SerializeField] protected bool isDragging = false;
+
     protected virtual void Start()
     {
-        attackButton.onClick.AddListener(PerformNormalAttack);
+        // Đặt lastAttackTime và lastSkillTime về giá trị sao cho người chơi có thể tấn công ngay lập tức
+        lastAttackTime = -attackCooldown;
+        lastSkillTime = -skillCooldown;
+        //attackButton.onClick.AddListener(PerformNormalAttack);
+        //Register event listener for joystick
+        joystick.OnPointerDownEvent += OnAttackJoystickDown;
+        joystick.OnPointerUpEvent += OnAttackJoystickUp;
+        joystick.OnDragEvent += OnAttackJoystickDrag;
 
         // Add EventTrigger for skill button
         EventTrigger trigger = skillButton.GetComponent<EventTrigger>();
@@ -50,7 +65,39 @@ public abstract class ElementController : MonoBehaviour
 
         abilityCircleImg.enabled = false;
         abilityCanvas.enabled = false;
+        joystick.gameObject.SetActive(true);
     }
+
+    protected virtual void OnAttackJoystickDown(PointerEventData eventData)
+    {
+        Debug.Log("joystick Down!!!");
+        isDragging = true;
+    }
+
+    protected virtual void OnAttackJoystickUp(PointerEventData eventData)
+    {
+        Debug.Log("joy stick up!!!");
+        isDragging = false;
+        if (Time.time - lastAttackTime > attackCooldown)
+        {
+            attackDirection = joystick.Direction; // Lưu hướng kéo khi thả joystick
+
+            PerformNormalAttack();
+        }
+    }
+
+    protected virtual void OnAttackJoystickDrag(PointerEventData eventData)
+    {
+        Debug.Log("joy stick drag!!!");
+        joystickDirection = joystick.Direction;
+        if (joystickDirection.magnitude >= 0.5f)
+        {
+            attackDirection = joystickDirection; // Lưu hướng kéo khi kéo joystick
+
+            PerformNormalAttack();
+        }
+    }
+
 
     private void Update()
     {
@@ -71,6 +118,10 @@ public abstract class ElementController : MonoBehaviour
                 Ability2Canvas(worldPosition);
             }
 #endif
+        }
+        if (isDragging)
+        {
+            joystickDirection = joystick.Direction;
         }
     }
 
@@ -94,6 +145,7 @@ protected abstract void PerformNormalAttack();
 
     protected virtual void OnSkillButtonUp(BaseEventData eventData)
     {
+        Debug.Log("joy stick up!!!");
         PointerEventData pointerData = eventData as PointerEventData;
         if (isAiming)
         {
@@ -110,6 +162,7 @@ protected abstract void PerformNormalAttack();
 
     protected virtual void OnSkillButtonDrag(BaseEventData eventData)
     {
+        Debug.Log("joy stick is draging!!!");
         PointerEventData pointerData = eventData as PointerEventData;
         if (pointerData != null)
         {
@@ -128,4 +181,5 @@ protected abstract void PerformNormalAttack();
         entry.callback.AddListener((eventData) => action(eventData));
         trigger.triggers.Add(entry);
     }
+  
 }

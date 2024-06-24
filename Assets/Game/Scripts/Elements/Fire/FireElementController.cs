@@ -8,25 +8,64 @@ public class FireElementController : ElementController
 {
 	protected override void PerformNormalAttack()
 	{
-		if (Time.time - lastAttackTime > attackCooldown)
-		{
-			if (currentElement != null && currentElement.normalAttackPrefab != null)
-			{
-				GameObject attack = Instantiate(currentElement.normalAttackPrefab, normalAttackPoint.position, normalAttackPoint.rotation);
-				Projectile projectile = attack.GetComponent<Projectile>();
-				if (projectile != null)
-				{
-					Vector2 direction = normalAttackPoint.right;
-					projectile.Initialize(direction, currentElement.normalAttackSpeed, currentElement.normalAttackDamage);
-					lastAttackTime = Time.time;
-				}
-			}
-			else
-			{
-				Debug.LogError("Normal attack prefab or currentElement is null");
-			}
-		}
-	}
+        //if (Time.time - lastAttackTime > attackCooldown)
+        //{
+        //	if (currentElement != null && currentElement.normalAttackPrefab != null)
+        //	{
+        //		GameObject attack = Instantiate(currentElement.normalAttackPrefab, playerTransform.position, playerTransform.rotation);
+        //		Projectile projectile = attack.GetComponent<Projectile>();
+        //		if (projectile != null)
+        //		{
+        //			Vector2 direction = playerTransform.;
+        //			projectile.Initialize(direction, currentElement.normalAttackSpeed, currentElement.normalAttackDamage);
+        //			lastAttackTime = Time.time;
+        //		}
+        //	}
+        //	else
+        //	{
+        //		Debug.LogError("Normal attack prefab or currentElement is null");
+        //	}
+        //}
+        if (attackDirection.magnitude > 0)
+        {
+            // Chuyển đổi hướng kéo sang tọa độ thế giới
+            Vector3 attackDirectionWorld = new Vector3(attackDirection.x, attackDirection.y, 0).normalized;
+
+            // Định vị điểm tấn công dựa trên hướng kéo
+            Vector3 attackPosition = normalAttackPoint.position + attackDirectionWorld;
+
+            if (currentElement != null && currentElement.normalAttackPrefab != null)
+            {
+                // Tạo đạn và định vị nó tại điểm tấn công
+                GameObject attack = Instantiate(currentElement.normalAttackPrefab, normalAttackPoint.position, Quaternion.identity);
+                Projectile projectile = attack.GetComponent<Projectile>();
+
+                if (projectile != null)
+                {
+                    // Khởi tạo đạn với hướng kéo
+                    projectile.Initialize(attackDirectionWorld, currentElement.normalAttackSpeed, currentElement.normalAttackDamage);
+                    lastAttackTime = Time.time;
+                }
+                else
+                {
+                    Debug.LogError("Projectile component not found on normalAttackPrefab");
+                }
+            }
+            else
+            {
+                Debug.LogError("Normal attack prefab or currentElement is null");
+            }
+
+            // Đặt lại hướng tấn công
+            attackDirection = Vector2.zero;
+
+            Debug.Log("Performing attack in direction: " + attackDirectionWorld);
+        }
+        else
+        {
+            Debug.Log("Attack direction is zero, no attack performed.");
+        }
+    }
 
 	
 
