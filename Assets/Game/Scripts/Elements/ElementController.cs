@@ -70,13 +70,13 @@ public abstract class ElementController : MonoBehaviour
 
     protected virtual void OnAttackJoystickDown(PointerEventData eventData)
     {
-        Debug.Log("joystick Down!!!");
+        //Debug.Log("joystick Down!!!");
         isDragging = true;
     }
 
     protected virtual void OnAttackJoystickUp(PointerEventData eventData)
     {
-        Debug.Log("joystick Up!!!");
+       // Debug.Log("joystick Up!!!");
         isDragging = false;
         if (attackDirection.magnitude > 0 && Time.time - lastAttackTime > attackCooldown)
         {
