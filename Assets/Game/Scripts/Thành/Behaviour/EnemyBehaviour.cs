@@ -2,7 +2,7 @@
 
 public class EnemyBehaviour : MonoBehaviour
 {
-	public ScriptableEntity entity;
+	public Golem entity;
 
 	[SerializeField] protected float hitpoints;
 	[SerializeField] protected float maxHitpoints;

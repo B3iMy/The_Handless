@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a82c70b86eacb64dbf7e9a149999d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
 --- !u!95 &7295858826710705714
 Animator:
   serializedVersion: 5
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a82c70b86eacb64dbf7e9a149999d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
 --- !u!95 &2592875877247025252
 Animator:
   serializedVersion: 5
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a82c70b86eacb64dbf7e9a149999d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
 --- !u!95 &3185104885847433158
 Animator:
   serializedVersion: 5
@@ -562,7 +562,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1969591274321484013}
   - component: {fileID: 8491896874758294479}
-  - component: {fileID: 8842393971121464834}
   m_Layer: 12
   m_Name: SkillAttack
   m_TagString: Untagged
@@ -579,7 +578,7 @@ Transform:
   m_GameObject: {fileID: 6908813747367534843}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.38995, y: -5.9843526, z: -0.68819785}
+  m_LocalPosition: {x: -27.98, y: -8.05, z: -0.68819785}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -644,21 +643,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8842393971121464834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6908813747367534843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2ea13c8e9d9c1940ad41a6f2d137c28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  damage: 3
-  lifetime: 5
 --- !u!1 &7282985249612799552
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,7 +805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a82c70b86eacb64dbf7e9a149999d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
 --- !u!95 &4209377445101593166
 Animator:
   serializedVersion: 5
@@ -1005,7 +989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a82c70b86eacb64dbf7e9a149999d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
 --- !u!95 &6456408255513007557
 Animator:
   serializedVersion: 5
@@ -1189,7 +1173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a82c70b86eacb64dbf7e9a149999d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
 --- !u!95 &6805933221273673235
 Animator:
   serializedVersion: 5
@@ -1373,7 +1357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a82c70b86eacb64dbf7e9a149999d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
 --- !u!95 &2536209242077641062
 Animator:
   serializedVersion: 5

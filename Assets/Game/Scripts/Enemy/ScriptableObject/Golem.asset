@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Golem
   description: 
-  hp: 100
-  atk: 1
+  hp: 1000
+  atk: 40
   attack_speed: 1
   speed_movement: 3
   range_attack: 3
