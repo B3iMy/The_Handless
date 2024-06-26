@@ -33,33 +33,40 @@ public class FireElementController : ElementController
 
             // Định vị điểm tấn công dựa trên hướng kéo
             Vector3 attackPosition = normalAttackPoint.position + attackDirectionWorld;
-
-            if (currentElement != null && currentElement.normalAttackPrefab != null)
+            if (Time.time - lastAttackTime > attackCooldown)
             {
-                // Tạo đạn và định vị nó tại điểm tấn công
-                GameObject attack = Instantiate(currentElement.normalAttackPrefab, normalAttackPoint.position, Quaternion.identity);
-                Projectile projectile = attack.GetComponent<Projectile>();
-
-                if (projectile != null)
+                if (currentElement != null && currentElement.normalAttackPrefab != null)
                 {
-                    // Khởi tạo đạn với hướng kéo
-                    projectile.Initialize(attackDirectionWorld, currentElement.normalAttackSpeed, currentElement.normalAttackDamage);
-                    lastAttackTime = Time.time;
+                    // Tạo đạn và định vị nó tại điểm tấn công
+                    GameObject attack = Instantiate(currentElement.normalAttackPrefab, normalAttackPoint.position, Quaternion.identity);
+                    Projectile projectile = attack.GetComponent<Projectile>();
+
+                    if (projectile != null)
+                    {
+                        // Khởi tạo đạn với hướng kéo
+                        projectile.Initialize(attackDirectionWorld, currentElement.normalAttackSpeed, currentElement.normalAttackDamage);
+                        lastAttackTime = Time.time;
+                    }
+                    else
+                    {
+                        Debug.LogError("Projectile component not found on normalAttackPrefab");
+                    }
                 }
                 else
                 {
-                    Debug.LogError("Projectile component not found on normalAttackPrefab");
+                    Debug.LogError("Normal attack prefab or currentElement is null");
                 }
+
+                // Đặt lại hướng tấn công
+                attackDirection = Vector2.zero;
+
+                Debug.Log("Performing attack in direction: " + attackDirectionWorld);
             }
             else
             {
-                Debug.LogError("Normal attack prefab or currentElement is null");
+                Debug.Log("Attack is on cooldown, no attack performed.");
             }
 
-            // Đặt lại hướng tấn công
-            attackDirection = Vector2.zero;
-
-            Debug.Log("Performing attack in direction: " + attackDirectionWorld);
         }
         else
         {

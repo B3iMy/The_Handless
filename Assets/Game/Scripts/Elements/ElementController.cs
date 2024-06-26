@@ -76,25 +76,24 @@ public abstract class ElementController : MonoBehaviour
 
     protected virtual void OnAttackJoystickUp(PointerEventData eventData)
     {
-        Debug.Log("joy stick up!!!");
+        Debug.Log("joystick Up!!!");
         isDragging = false;
-        if (Time.time - lastAttackTime > attackCooldown)
+        if (attackDirection.magnitude > 0 && Time.time - lastAttackTime > attackCooldown)
         {
-            attackDirection = joystick.Direction; // Lưu hướng kéo khi thả joystick
-
             PerformNormalAttack();
         }
+        attackDirection = Vector2.zero; // Đặt lại hướng tấn công khi thả joystick
     }
 
     protected virtual void OnAttackJoystickDrag(PointerEventData eventData)
     {
         Debug.Log("joy stick drag!!!");
-        joystickDirection = joystick.Direction;
+        //joystickDirection = joystick.Direction;
         if (joystickDirection.magnitude >= 0.5f)
         {
             attackDirection = joystickDirection; // Lưu hướng kéo khi kéo joystick
 
-            PerformNormalAttack();
+            //PerformNormalAttack();
         }
     }
 
@@ -123,6 +122,7 @@ public abstract class ElementController : MonoBehaviour
         {
             joystickDirection = joystick.Direction;
         }
+        
     }
 
 protected abstract void Ability2Canvas(Vector3 worldPosition);
