@@ -15,13 +15,7 @@ public class GolemBehaviour : MonoBehaviour
 
 	private Vector3 originalScale; // To store the original scale
 
-	// Laser setting
-	[SerializeField] private GameObject laserPrefab;
-	[SerializeField] private Transform firePoint; // the point where the laser is fired from
-	[SerializeField] private float laserSpeed = 10f;
-	[SerializeField] private float laserCooldown = 5f;
-	[SerializeField] private float laserSpreadAngle = 30f; // angle between lasers
-	private float lastLaserTime;
+	public bool isIdle;
 
 	private void Awake()
 	{
@@ -46,7 +40,6 @@ public class GolemBehaviour : MonoBehaviour
 	private void Start()
 	{
 		skillCooldownTimer = Random.Range(1f, stats.whirlwind_cooldown);
-		lastLaserTime = -laserCooldown; // Initialize so that laser can be fired immediately if needed
 	}
 
 	private void Update()
@@ -72,11 +65,16 @@ public class GolemBehaviour : MonoBehaviour
 				WhirlwindMove();
 			}
 		}
+	}
 
-		// Fire laser if cooldown is over
-		if (Time.time - lastLaserTime >= laserCooldown && !isUsingSkill)
+	public void SetIdle(bool idle)
+	{
+		isIdle = idle;
+		enemyMovement.enabled = !idle;
+		animator.SetBool("Idle", idle); // Assuming you have an "Idle" parameter in your Animator
+		if (idle)
 		{
-			FireLaser();
+			rb.velocity = Vector2.zero;
 		}
 	}
 
@@ -130,39 +128,6 @@ public class GolemBehaviour : MonoBehaviour
 			{
 				player.TakeHit(stats.atk);
 			}
-		}
-	}
-
-	private void FireLaser()
-	{
-		if (firePoint != null && laserPrefab != null)
-		{
-			// calculate the firing direction of the laser
-			Vector2 directionToPlayer = (playerTransform.position - firePoint.position).normalized;
-			float baseAngle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-
-			// shoot laser in three different angle
-			FireSingleLaser(baseAngle);
-			FireSingleLaser(baseAngle + laserSpreadAngle);
-			FireSingleLaser(baseAngle - laserSpreadAngle);
-
-			lastLaserTime = Time.time;
-		}
-		else
-		{
-			Debug.LogError("Fire point or laser prefab is not set.");
-		}
-	}
-
-	private void FireSingleLaser(float angle)
-	{
-		GameObject laser = Instantiate(laserPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
-
-		// Set the velocity of the laser
-		Rigidbody2D laserRb = laser.GetComponent<Rigidbody2D>();
-		if (laserRb != null)
-		{
-			laserRb.velocity = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * laserSpeed;
 		}
 	}
 
