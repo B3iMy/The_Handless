@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalAttackPrefab: {fileID: 6060170035133248652, guid: b897b5915cf07cd4688ce441dacf82b6, type: 3}
   normalAttackSpeed: 10
-  normalAttackDamage: 1
+  normalAttackDamage: 10
   skillPrefab: {fileID: 6908813747367534843, guid: 976a5723a46d5f64fb674d59af701a54, type: 3}
-  skillDamage: 1
+  skillDamage: 10
   skillDuration: 5
+  skillSpeed: 10

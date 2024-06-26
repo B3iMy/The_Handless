@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Player
   description: 
-  hp: 100
-  atk: 3
+  hp: 1000
+  atk: 40
   attack_speed: 0
   speed_movement: 3
   range_attack: 3
