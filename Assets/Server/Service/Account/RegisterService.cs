@@ -1,53 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using Unity.Services.Authentication;
-using Unity.Services.Core;
 using UnityEngine.UI;
-
-
-
+using Unity.Services.Authentication;  // Make sure Unity Services Authentication is correctly imported
+using System.Threading.Tasks;
 
 public class RegisterService : MonoBehaviour
 {
-
     public InputField InputName;
     public InputField InputPassword;
     public InputField InputConfirmPassword;
     public InputField InputEmail;
     public Button register;
-    public Button login;
-    public Text Result;
-    private bool isInitialized = false;
-    public HttpClient httpClient;
-    // Start is called before the first frame update
-    public async void Start()
+    public Text ResultText;  // Changed to use UnityEngine.UI.Text directly
+
+    private HttpClient httpClient;
+
+    private void Start()
     {
         try
         {
+            // Initialize HttpClient (replace with your actual initialization method)
+            httpClient = new HttpClient();
 
-
-            // Add listeners for the buttons
+            // Add listener for the register button
             register.onClick.AddListener(RegisterUserData);
-            //login.onClick.AddListener(DeleteUserData);
-
-
-
-
-            // Connect to the server
-            httpClient.StartServer();
         }
         catch (System.Exception ex)
         {
-            // Display error message if initialization fails
+            Debug.LogError($"Error initializing RegisterService: {ex.Message}");
         }
     }
-    // Register user 
-    public void RegisterUserData()
+
+    private async void RegisterUserData()
     {
-        httpClient.RegisterUserDataAsync(InputName.text, InputPassword.text, InputConfirmPassword.text, InputEmail.text);
+
+            // Basic input validation
+            if (string.IsNullOrEmpty(InputName.text) || string.IsNullOrEmpty(InputPassword.text) || string.IsNullOrEmpty(InputEmail.text))
+            {
+                Debug.LogWarning("Please fill in all fields.");
+                return;
+            }
+
+            if (InputPassword.text != InputConfirmPassword.text)
+            {
+                Debug.LogWarning("Passwords do not match.");
+                return;
+            }
+
+            // You might want to perform more thorough validation here (e.g., email format)
+
+            // Call your API or service to register user data
+            string result = await httpClient.RegisterUserDataAsync(InputName.text, InputPassword.text, InputEmail.text);
+            Debug.Log(result);
+            // Display result to user (or log it for debugging)
+        
     }
-
-
 }

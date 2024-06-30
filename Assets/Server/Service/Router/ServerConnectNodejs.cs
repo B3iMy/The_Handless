@@ -1,23 +1,51 @@
 using UnityEngine;
 using UnityEngine.Networking;
-using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using System;
+using System.Text;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net;
 
+// Define a Unity MonoBehaviour class to handle HTTP requests
 public class HttpClient : MonoBehaviour
 {
-    private string serverUrl = "https://127.0.0.2:8000";
+    // Class to represent user data
+    public class DataRegister
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+        public string email { get; set; }
+    };
+    public class DataRequestTo
+    {
+        public string username { get; set; }
+        public string email { get; set; }
+    };
+    public class DataResetPassword
+    {
+        public string resetToken { get; set; }
+        public string newPassword { get; set; }
+        public string confirmNewPassword { get; set; }
+    };
+        // URL of the server
+        private string serverUrl = "https://127.0.0.2:8000";
 
+    // Called when the script instance is being loaded
     void Start()
     {
         StartServer();
     }
 
+    // Start the server connection coroutine
     public void StartServer()
     {
         StartCoroutine(ConnectToServerCoroutine());
     }
 
+    // Coroutine to handle server connection asynchronously
     private IEnumerator ConnectToServerCoroutine()
     {
         var getRequestTask = GetRequestAsync(serverUrl);
@@ -25,7 +53,7 @@ public class HttpClient : MonoBehaviour
 
         if (getRequestTask.IsFaulted || getRequestTask.IsCanceled)
         {
-            Debug.LogError("GET request failed.");
+            Debug.LogError("GET request failed: " + getRequestTask.Exception?.Message);
         }
         else
         {
@@ -33,6 +61,7 @@ public class HttpClient : MonoBehaviour
         }
     }
 
+    // Asynchronous method to perform a GET request
     private async Task<string> GetRequestAsync(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
@@ -40,81 +69,99 @@ public class HttpClient : MonoBehaviour
             webRequest.certificateHandler = new AcceptAllCertificates();
             var operation = webRequest.SendWebRequest();
 
+            // Wait for the request to complete
             while (!operation.isDone)
                 await Task.Yield();
 
-            if (webRequest.result == UnityWebRequest.Result.ConnectionError ||
-                webRequest.result == UnityWebRequest.Result.DataProcessingError ||
-                webRequest.result == UnityWebRequest.Result.ProtocolError)
+            if (webRequest.result != UnityWebRequest.Result.Success)
             {
                 Debug.LogError("Error: " + webRequest.error + " URL: " + uri);
                 return null;
             }
-            else
-            {
-                Debug.Log("Received from " + uri + ": " + webRequest.downloadHandler.text);
-                return webRequest.downloadHandler.text;
-            }
+
+            Debug.Log("Received from " + uri + ": " + webRequest.downloadHandler.text);
+            return webRequest.downloadHandler.text;
         }
     }
 
+    // Asynchronous method to perform a POST request
     private async Task<string> PostRequestAsync(string uri, string jsonData)
     {
+
+
+
         using (UnityWebRequest webRequest = new UnityWebRequest(uri, "POST"))
         {
-            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
             webRequest.certificateHandler = new AcceptAllCertificates();
             webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
             webRequest.downloadHandler = new DownloadHandlerBuffer();
             webRequest.SetRequestHeader("Content-Type", "application/json");
+
             var operation = webRequest.SendWebRequest();
 
+            // Wait for the request to complete
             while (!operation.isDone)
+            {
                 await Task.Yield();
+            }
 
-            if (webRequest.result == UnityWebRequest.Result.ConnectionError ||
-                webRequest.result == UnityWebRequest.Result.DataProcessingError ||
-                webRequest.result == UnityWebRequest.Result.ProtocolError)
+            if (webRequest.result != UnityWebRequest.Result.Success)
             {
                 Debug.LogError("Error: " + webRequest.error + " URL: " + uri);
                 return null;
             }
-            else
-            {
-                Debug.Log("Received from " + uri + ": " + webRequest.downloadHandler.text);
-                SceneManager.LoadSceneAsync("Maps");
-                return webRequest.downloadHandler.text;
-            }
+
+            Debug.Log("Received from " + uri + ": " + webRequest.downloadHandler.text);
+            return webRequest.downloadHandler.text;
         }
     }
 
-    public async Task<string> RegisterUserDataAsync(string name, string password, string passwordConfirm, string email)
+// Method to register user data asynchronously
+public async Task<string> RegisterUserDataAsync(string username, string userpassword, string useremail)
     {
-        string dataRegister = JsonUtility.ToJson(new { name, password, passwordConfirm, email });
-        return await PostRequestAsync(serverUrl + "/users/addUser", dataRegister);
+
+        DataRegister DataRegister = new DataRegister { username = username, password = userpassword, email = useremail };
+        string data = JsonConvert.SerializeObject(DataRegister);
+        return await PostRequestAsync(serverUrl + "/users/addUser", data);
     }
 
-    public async Task<string> DeleteUserDataAsync()
-    {
-        return await PostRequestAsync(serverUrl + "/users/delete", "{}");
-    }
-
-    public async Task<string> LoadAllUserDataAsync()
-    {
-        return await GetRequestAsync(serverUrl + "/users");
-    }
-
+    // Method to handle user login asynchronously
     public async Task<string> OnLoginAsync(string name, string password)
     {
         string dataRequest = $"?username={UnityWebRequest.EscapeURL(name)}&password={UnityWebRequest.EscapeURL(password)}";
-        return await GetRequestAsync(serverUrl + "/users/getUser"+ dataRequest);
+        return await GetRequestAsync(serverUrl + "/users/getUser" + dataRequest);
     }
 
+    // Method to handle forgot password functionality asynchronously
+    public async Task<string> ForgotPasswordAsync(string name, string email)
+    {
+        DataRequestTo dataRequest = new DataRequestTo {username = name, email = email};
+        string data = JsonConvert.SerializeObject(dataRequest);
+        try
+        {
+            return await PostRequestAsync(serverUrl + "/users/forgotPassword", data);
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions (e.g., logging)
+            throw new InvalidOperationException("Error occurred during forgot password request.", ex);
+        }
+    }
+
+    // Method to handle password reset functionality asynchronously
+    public async Task<string> ResetPasswordAsync(string resetToken, string newPassword, string confirmNewPassword)
+    {
+        var data = new { resetToken, newPassword, confirmNewPassword };
+        return await PostRequestAsync(serverUrl + "/users/resetPassword", JsonConvert.SerializeObject(data));
+    }
+
+    // Custom certificate handler to accept all certificates
     public class AcceptAllCertificates : CertificateHandler
     {
         protected override bool ValidateCertificate(byte[] certificateData)
         {
-            return true;
+            return true;  // Accept all certificates
         }
     }
 }

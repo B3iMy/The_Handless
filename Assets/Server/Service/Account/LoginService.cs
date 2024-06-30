@@ -36,7 +36,7 @@ public class LoginService : MonoBehaviour
         string password_ = InputPassword.text;
         Debug.Log($"Logging in with username: {username_} and password: {password_}");
         // Assuming LoadUserByIDAsync is an async method on httpClient
-        string user = await httpClient.OnLoginAsync(username_, password_);
+        string user = await httpClient.OnLoginAsync(InputName.text, InputPassword.text);
         Result.text = "Login successful";
         // Check if HttpClient is initialized
         if (httpClient == null)
