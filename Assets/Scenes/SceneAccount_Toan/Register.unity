@@ -516,13 +516,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 314529927}
   m_TextComponent: {fileID: 235329461}
   m_Placeholder: {fileID: 325594916}
-  m_ContentType: 0
+  m_ContentType: 6
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 7
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 5
   m_CharacterLimit: 0
   m_OnSubmit:
     m_PersistentCalls:
@@ -820,8 +820,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 363247044}
   m_TextComponent: {fileID: 19673199}
   m_Placeholder: {fileID: 2059047107}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -2505,9 +2505,7 @@ MonoBehaviour:
   InputConfirmPassword: {fileID: 363247043}
   InputEmail: {fileID: 314529926}
   register: {fileID: 851163424}
-  login: {fileID: 1123717093}
-  Result: {fileID: 1042585434}
-  httpClient: {fileID: 0}
+  ResultText: {fileID: 0}
 --- !u!1 &1631657549
 GameObject:
   m_ObjectHideFlags: 0
@@ -2628,8 +2626,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1760701598}
   m_TextComponent: {fileID: 900563008}
   m_Placeholder: {fileID: 352658425}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
