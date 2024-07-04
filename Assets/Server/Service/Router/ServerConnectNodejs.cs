@@ -13,25 +13,34 @@ using System.Net;
 public class HttpClient : MonoBehaviour
 {
     // Class to represent user data
-    public class DataRegister
+    private SaveLoadManager saveLoadManager= new SaveLoadManager();
+    private class DataRegister
     {
         public string username { get; set; }
         public string password { get; set; }
         public string email { get; set; }
     };
-    public class DataRequestTo
+    private class DataRequestTo
     {
         public string username { get; set; }
         public string email { get; set; }
     };
-    public class DataResetPassword
+    private class DataResetPassword
     {
+        public string username { get; set; }
         public string resetToken { get; set; }
         public string newPassword { get; set; }
-        public string confirmNewPassword { get; set; }
     };
-        // URL of the server
-        private string serverUrl = "https://127.0.0.2:8000";
+    private class UserData
+    {
+        public string user_id { get; set; }
+        public string username { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+    };
+    // URL of the server
+    private string serverUrl = "https://127.0.0.2:8000";
+    
 
     // Called when the script instance is being loaded
     void Start()
@@ -42,6 +51,7 @@ public class HttpClient : MonoBehaviour
     // Start the server connection coroutine
     public void StartServer()
     {
+        
         StartCoroutine(ConnectToServerCoroutine());
     }
 
@@ -117,20 +127,32 @@ public class HttpClient : MonoBehaviour
         }
     }
 
-// Method to register user data asynchronously
-public async Task<string> RegisterUserDataAsync(string username, string userpassword, string useremail)
+    // Method to register user data asynchronously
+    public async Task<string> RegisterUserDataAsync(string username, string userpassword, string useremail)
     {
-
         DataRegister DataRegister = new DataRegister { username = username, password = userpassword, email = useremail };
         string data = JsonConvert.SerializeObject(DataRegister);
+       
         return await PostRequestAsync(serverUrl + "/users/addUser", data);
+        
     }
 
     // Method to handle user login asynchronously
     public async Task<string> OnLoginAsync(string name, string password)
     {
         string dataRequest = $"?username={UnityWebRequest.EscapeURL(name)}&password={UnityWebRequest.EscapeURL(password)}";
-        return await GetRequestAsync(serverUrl + "/users/getUser" + dataRequest);
+
+        string data = await GetRequestAsync(serverUrl + "/users/getUser" + dataRequest);
+        UserData userData = new UserData();
+        userData = JsonUtility.FromJson<UserData>(data);
+        string user_id = userData.user_id;
+        string user_name = userData.username;
+        string user_password = userData.password;
+        string user_email = userData.email;
+        Debug.Log(user_id + user_name + user_password + user_email);
+        saveLoadManager.AddDataUser(user_id, user_name, user_password, user_email);
+
+        return data;
     }
 
     // Method to handle forgot password functionality asynchronously
@@ -138,6 +160,7 @@ public async Task<string> RegisterUserDataAsync(string username, string userpass
     {
         DataRequestTo dataRequest = new DataRequestTo {username = name, email = email};
         string data = JsonConvert.SerializeObject(dataRequest);
+        saveLoadManager.AddDataUser("", name, "", "");
         try
         {
             return await PostRequestAsync(serverUrl + "/users/forgotPassword", data);
@@ -150,10 +173,11 @@ public async Task<string> RegisterUserDataAsync(string username, string userpass
     }
 
     // Method to handle password reset functionality asynchronously
-    public async Task<string> ResetPasswordAsync(string resetToken, string newPassword, string confirmNewPassword)
+    public async Task<string> ResetPasswordAsync(string resetToken, string newPassword)
     {
-        var data = new { resetToken, newPassword, confirmNewPassword };
-        return await PostRequestAsync(serverUrl + "/users/resetPassword", JsonConvert.SerializeObject(data));
+        string dataUser = saveLoadManager.LoadUserFromFile();
+        DataResetPassword dataReset = new DataResetPassword { username = dataUser, resetToken = resetToken, newPassword = newPassword };
+        return await PostRequestAsync(serverUrl + "/users/resetPassword", JsonConvert.SerializeObject(dataReset));
     }
 
     // Custom certificate handler to accept all certificates

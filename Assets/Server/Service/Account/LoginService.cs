@@ -11,9 +11,9 @@ public class LoginService : MonoBehaviour
     public Button login;
     public Text Result;
     private bool isInitialized = false;
-    public HttpClient httpClient;
+    private HttpClient httpClient;
 
-    public async void Start()
+    public void Start()
     {
         try
         {

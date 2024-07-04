@@ -7,10 +7,12 @@ using Unity.Services.Core;
 public class AcceptCodeSevice : MonoBehaviour
 {
     public InputField InputCode;
+    public InputField InputPassword;
+    public InputField InputComfirmPassword;
     public Button ExceptCode;
     public Text Result;
     private bool isInitialized = false;
-    public HttpClient httpClient;
+    private HttpClient httpClient;
 
     public async void Start()
     {
@@ -31,16 +33,28 @@ public class AcceptCodeSevice : MonoBehaviour
 
     private async void OnForgotPasswordButtonClick()
     {
-        
-        /*string usercode = InputCode.text;
+
+        string usercode = InputCode.text;
+        string password = InputPassword.text;
+        string confirmPassword = InputComfirmPassword.text;
+        if (password == confirmPassword)
+        {
+            string user = await httpClient.ResetPasswordAsync(usercode, password);
+            Result.text = "Forgot password successful";
+        }
+        else
+        {
+            Result.text = "Please confirm password not alike ";
+        }
+
         // Assuming LoadUserByIDAsync is an async method on httpClient
-        string user = await httpClient.ForgotPasswordAsync(usercode);
-        Result.text = "Forgot password successful";
+        
+        
         // Check if HttpClient is initialized
         if (httpClient == null)
         {
             return;
-        }*/
+        }
 
 
     }

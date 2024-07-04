@@ -53,6 +53,7 @@ public class ForgotPasswordService : MonoBehaviour
         {
             // Assuming ForgotPasswordAsync is an async method on httpClient
             string user = await httpClient.ForgotPasswordAsync(fieldName, fieldEmail);
+            Debug.Log(fieldName);
             Result.text = "Forgot password successful";
         }
         catch (Exception ex)
