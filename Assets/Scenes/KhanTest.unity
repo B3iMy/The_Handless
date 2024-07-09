@@ -2198,6 +2198,11 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!1 &524121115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1304957800263879255, guid: de498b026cf1f1f41aaa40ec5b5b2c5c, type: 3}
+  m_PrefabInstance: {fileID: 416925386319916937}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &614458390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2460,7 +2465,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e99b9983929c54296708ff2a531610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3695171998611949198}
+  bossList:
+  - {fileID: 3695171998611949198}
+  - {fileID: 524121115}
+  - {fileID: 2077333157}
   spawnDelay: 3
   spawnAreaMin: {x: -9, y: -5}
   spawnAreaMax: {x: 9, y: 5}
@@ -2547,6 +2555,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 976a5723a46d5f64fb674d59af701a54, type: 3}
+--- !u!1 &2077333157 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7360666769059925779, guid: de498b026cf1f1f41aaa40ec5b5b2c5c, type: 3}
+  m_PrefabInstance: {fileID: 416925386319916937}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &416925386319916937
 PrefabInstance:
   m_ObjectHideFlags: 0

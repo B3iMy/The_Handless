@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class EnemyBehaviour : MonoBehaviour
 	[SerializeField] protected float hitpoints;
 	[SerializeField] protected float maxHitpoints;
 	[SerializeField] protected HealthBarBehaviour healthbar;
+
+	public event Action OnEnemyKilled;
 
 	private void Start()
 	{
@@ -44,6 +47,7 @@ public class EnemyBehaviour : MonoBehaviour
 		if (hitpoints <= 0)
 		{
 			hitpoints = 0;
+			OnEnemyKilled.Invoke();
 			Destroy(gameObject);
 		}
 
