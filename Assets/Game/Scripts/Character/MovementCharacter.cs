@@ -17,7 +17,7 @@ public class MovementCharacter : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();  
+        rb = GetComponent<Rigidbody2D>(); 
         anim = GetComponent<Animator>();
     }
 

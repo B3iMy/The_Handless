@@ -9,6 +9,8 @@ public class Projectile : MonoBehaviour
 	[SerializeField] private float lifetime = 3f;
 	private Vector2 direction;
 
+	public GameObject owner;
+
 	private void Start()
 	{
 		Destroy(gameObject, lifetime);
@@ -35,7 +37,7 @@ public class Projectile : MonoBehaviour
 			if (enemy != null)
 			{
 				// take damage and destroy prefabs
-				enemy.TakeHit(damage);
+				enemy.TakeHit(damage, owner);
 				Destroy(gameObject);
 			}
 		}

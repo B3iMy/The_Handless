@@ -40,9 +40,10 @@ public class EnemyBehaviour : MonoBehaviour
 		}
 	}
 
-	public void TakeHit(float damage)
+	public void TakeHit(float damage, GameObject player)
 	{
 		hitpoints -= damage;
+		Debug.Log($"Boss take {damage} damage from {player.name}");
 
 		if (hitpoints <= 0)
 		{

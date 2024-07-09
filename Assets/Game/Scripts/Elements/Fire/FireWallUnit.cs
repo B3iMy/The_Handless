@@ -5,6 +5,7 @@ using UnityEngine;
 public class WindWallUnit : MonoBehaviour
 {
 	public float damage;
+	public GameObject owner;
 
 	public void Initialize(float skillDamage)
 	{
@@ -19,7 +20,7 @@ public class WindWallUnit : MonoBehaviour
 			EnemyBehaviour enemy = collision.GetComponentInParent<EnemyBehaviour>();
 			if (enemy != null)
 			{
-				enemy.TakeHit(damage);
+				enemy.TakeHit(damage, owner);
 				Destroy(gameObject); // Destroy each unit of fire wall
 			}
 		}
