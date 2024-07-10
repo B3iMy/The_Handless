@@ -11,6 +11,9 @@ public class EnemyBehaviour : MonoBehaviour
 
 	public event Action OnEnemyKilled;
 
+	// Reference to the DamageTracker
+	public DamageTracker damageTracker;
+
 	private void Start()
 	{
 		InitializeEnemy();
@@ -43,7 +46,16 @@ public class EnemyBehaviour : MonoBehaviour
 	public void TakeHit(float damage, GameObject player)
 	{
 		hitpoints -= damage;
-		Debug.Log($"Boss take {damage} damage from {player.name}");
+
+		string playerName = player.tag; // Use tag to identify player
+
+		Debug.Log($"Boss take {damage} damage from {playerName}");
+
+		// Add damage to DamageTracker
+		if (damageTracker != null)
+		{
+			damageTracker.AddDamage(playerName, damage);
+		}
 
 		if (hitpoints <= 0)
 		{

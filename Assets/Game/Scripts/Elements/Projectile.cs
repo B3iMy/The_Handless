@@ -36,6 +36,9 @@ public class Projectile : MonoBehaviour
 			EnemyBehaviour enemy = collision.GetComponentInParent<EnemyBehaviour>();
 			if (enemy != null)
 			{
+				// Assuming the player's name is the root GameObject's name
+				string playerName = transform.root.name;
+
 				// take damage and destroy prefabs
 				enemy.TakeHit(damage, owner);
 				Destroy(gameObject);

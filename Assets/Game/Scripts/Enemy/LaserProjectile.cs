@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaserProjectile : MonoBehaviour
 {
-	[SerializeField] private float damage = 10f;
+	public Golem stats;
 	[SerializeField] private float lifetime = 2f;
 
 	private void Start()
@@ -22,7 +22,7 @@ public class LaserProjectile : MonoBehaviour
 			if (player != null)
 			{
 				// take damage and destroy prefabs
-				player.TakeHit(damage);
+				player.TakeHit(stats.atk);
 				Debug.Log("Player nhan damage laser");
 				Destroy(gameObject);
 			}	
