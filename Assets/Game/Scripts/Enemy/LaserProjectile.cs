@@ -6,7 +6,7 @@ public class LaserProjectile : MonoBehaviour
 {
 	public Golem stats;
 	[SerializeField] private float lifetime = 2f;
-	public GameObject laserDetroy;
+	public GameObject laserDestroy;
 
 	private void Start()
 	{
@@ -32,7 +32,7 @@ public class LaserProjectile : MonoBehaviour
 		else if (collision.gameObject.CompareTag("Obstacles"))
 		{
 			//apply laser destroy effect
-			GameObject laserEffect = Instantiate(laserDetroy, transform.position, transform.rotation);
+			GameObject laserEffect = Instantiate(laserDestroy, transform.position, transform.rotation);
 			laserEffect.SetActive(true);
 			Destroy(laserEffect, 0.4f);
 

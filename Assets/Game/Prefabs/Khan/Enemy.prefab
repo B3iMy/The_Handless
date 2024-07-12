@@ -588,10 +588,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0527a3a30804342bafcac754149861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 0}
+  entity: {fileID: 11400000, guid: ccec81dec79e21542b83bd913f609271, type: 2}
   hitpoints: 0
   maxHitpoints: 0
   healthbar: {fileID: 3880580186244342923}
+  damageTracker: {fileID: 0}
 --- !u!114 &4209808487695816222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,6 +978,7 @@ MonoBehaviour:
   hitpoints: 0
   maxHitpoints: 0
   healthbar: {fileID: 1704323632337712754}
+  damageTracker: {fileID: 0}
 --- !u!114 &6801498892395146404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1964,7 +1966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9de7b7984e320914aba2c5b99c20a39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 5478512271435585657, guid: f599faee205d42a4a9ab71789229bd88, type: 3}
+  bullet: {fileID: 0}
   bulletLife: 4
   speed: 10
   spawnerType: 1
@@ -3641,6 +3643,7 @@ MonoBehaviour:
   hitpoints: 0
   maxHitpoints: 0
   healthbar: {fileID: 1312172011076354514}
+  damageTracker: {fileID: 0}
 --- !u!114 &7817082730194849080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3852,7 +3855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9de7b7984e320914aba2c5b99c20a39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 5478512271435585657, guid: f599faee205d42a4a9ab71789229bd88, type: 3}
+  bullet: {fileID: 0}
   bulletLife: 4
   speed: 10
   spawnerType: 1
@@ -4154,7 +4157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9de7b7984e320914aba2c5b99c20a39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 5478512271435585657, guid: f599faee205d42a4a9ab71789229bd88, type: 3}
+  bullet: {fileID: 0}
   bulletLife: 4
   speed: 10
   spawnerType: 1

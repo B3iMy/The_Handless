@@ -172,8 +172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8982bde369b984141b5c71be7194e4ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  stats: {fileID: 11400000, guid: ccec81dec79e21542b83bd913f609271, type: 2}
   lifetime: 4
+  laserDestroy: {fileID: 6734914314778671723, guid: ab91cb3af607c6b409251c87b12c0822, type: 3}
 --- !u!114 &7894523269814442451
 MonoBehaviour:
   m_ObjectHideFlags: 0
