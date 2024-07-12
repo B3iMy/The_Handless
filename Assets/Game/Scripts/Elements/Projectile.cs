@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour, InteractElement
 	private Rigidbody2D rb;
 	private Vector2 direction;
 
+	public GameObject owner;
+
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
@@ -39,8 +41,11 @@ public class Projectile : MonoBehaviour, InteractElement
 			EnemyBehaviour enemy = collision.GetComponentInParent<EnemyBehaviour>();
 			if (enemy != null)
 			{
+				// Assuming the player's name is the root GameObject's name
+				string playerName = transform.root.name;
+
 				// take damage and destroy prefabs
-				enemy.TakeHit(damage);
+				enemy.TakeHit(damage, owner);
 				Destroy(gameObject);
 			}
 		}

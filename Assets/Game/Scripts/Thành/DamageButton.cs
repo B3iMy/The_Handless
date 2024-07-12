@@ -9,7 +9,7 @@ public class DamageButton : MonoBehaviour
 
     public void DamageEnemy()
     {
-        enemy.TakeHit(entity.atk); // Use player's attack value
+        //enemy.TakeHit(entity.atk); // Use player's attack value
         Debug.Log("This button is clicked and Player attacks with " + entity.atk + " damage!");
         //enemy.TakeHit(1); // Use player's attack value
         //Debug.Log("This button is clicked and Player attacks with " + 1 + " damage!");
