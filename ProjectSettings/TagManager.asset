@@ -9,6 +9,7 @@ TagManager:
   - EnemyHitbox
   - Obstacles
   - PlayerHitbox
+  - Tornado
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - NormalAttack
   - Hitbox
   - Skill
-  - 
+  - Tornado
   - 
   - 
   - 

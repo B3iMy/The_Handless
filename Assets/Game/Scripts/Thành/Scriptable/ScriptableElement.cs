@@ -13,4 +13,5 @@ public class Element : ScriptableObject
 	public float skillDamage = 10f;
 	public float skillDuration = 2f;
     public float skillSpeed = 10f;
+
 }

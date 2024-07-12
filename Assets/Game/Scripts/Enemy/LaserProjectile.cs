@@ -23,6 +23,7 @@ public class LaserProjectile : MonoBehaviour
 			{
 				// take damage and destroy prefabs
 				player.TakeHit(damage);
+
 				Debug.Log("Player nhan damage laser");
 				Destroy(gameObject);
 			}	

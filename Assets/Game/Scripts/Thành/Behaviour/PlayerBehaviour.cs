@@ -8,6 +8,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public float Hitpoints;
     public float MaxHitpoints;
+
     public HealthBarBehaviour Healthbar;
     void Start()
     {
@@ -17,6 +18,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
     public void TakeHit(float damage)
     {
+
         Hitpoints -= damage;
 
         if (Hitpoints <= 0)
