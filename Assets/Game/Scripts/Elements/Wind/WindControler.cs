@@ -36,7 +36,6 @@ public  class WindControler : ElementController
 
         // Lưu vị trí ban đầu của skill indicator khi khởi động
         skillIndicatorInitialPosition = skillIndicator.transform.localPosition;
-
     }
 
     private void Update()
@@ -63,7 +62,6 @@ public  class WindControler : ElementController
 
     protected override void OnSkillButtonDown(BaseEventData eventData)
     {
-        Debug.Log("Skill Button Down!!!");
         if (Time.time - lastSkillTime >= skillCooldown)
         {
             abilityCanvas.enabled = true;
@@ -82,7 +80,6 @@ public  class WindControler : ElementController
     protected override void OnSkillButtonUp(BaseEventData eventData)
     {
        
-        Debug.Log("Skill Button Up!!!");
         if (isAiming)
         {
             ActivateSkill(playerTransform.position + (Vector3)skillDirection);
@@ -94,35 +91,47 @@ public  class WindControler : ElementController
 
     protected override void OnSkillButtonDrag(BaseEventData eventData)
     {
-        
+
         PointerEventData pointerData = eventData as PointerEventData;
         if (pointerData != null)
         {
-            Debug.Log("Tornado skill is Draging");
             Vector3 pointerPosition = pointerData.position;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(pointerPosition);
             worldPosition.z = 0; // Đảm bảo rằng chúng ta ở không gian 2D
-
             // Tính toán hướng từ vị trí của nhân vật (playerTransform.position) đến vị trí của chuột (worldPosition)
             skillDirection = ((Vector2)worldPosition - (Vector2)playerTransform.position).normalized;
-            Debug.Log("SkillDirection: " + skillDirection);
             // Cập nhật chỉ báo kỹ năng dựa trên hướng tính toán
             UpdateSkillIndicator(playerTransform.position + (Vector3)skillDirection);
         }
+
     }
 
     private void UpdateSkillIndicator(Vector3 worldPosition)
     {
-        
+        // Tính toán hướng từ người chơi đến vị trí thế giới
         Vector2 direction = ((Vector2)worldPosition - (Vector2)playerTransform.position).normalized;
         Vector2 newHitpoint = (Vector2)playerTransform.position + direction;
 
+        // Đặt vị trí của abilityCanvas tại điểm mới tính toán
         abilityCanvas.transform.position = new Vector3(newHitpoint.x, newHitpoint.y, abilityCanvas.transform.position.z);
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.Euler(0, 0, angle);
-        abilityCanvas.transform.rotation = rotation;
 
-        // Cập nhật chỉ báo kỹ năng, nhưng giữ vị trí ban đầu của skill indicator
+        // Tính toán góc quay dựa trên hướng
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Lấy hướng của scale của người chơi
+        float playerScaleDirection = Mathf.Sign(playerTransform.localScale.x);
+
+        // Nếu hướng của scale của người chơi là âm (quay sang trái), thì thêm 180 độ
+        if (playerScaleDirection < 0)
+        {
+            angle += 180f;
+        }
+
+        // Tạo một quaternion từ góc quay đã tính toán
+        Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+        // Áp dụng quay cho abilityCanvas và skillIndicator
+        abilityCanvas.transform.rotation = rotation;
         skillIndicator.transform.position = playerTransform.position;
         skillIndicator.transform.rotation = rotation;
     }
@@ -133,7 +142,7 @@ public  class WindControler : ElementController
         if (currentElement != null && currentElement.skillPrefab)
         {
             // Instantiate the skill prefab at the specified position
-            GameObject skill = Instantiate(currentElement.skillPrefab, playerTransform.position, Quaternion.identity);
+            GameObject skill = Instantiate(currentElement.skillPrefab, skillPoint.position, Quaternion.identity);
             Debug.Log("Skill instantiated: " + skill.name);
 
             // Debug: List all components attached to the instantiated skill object

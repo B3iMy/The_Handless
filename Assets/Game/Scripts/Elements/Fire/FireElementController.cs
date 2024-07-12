@@ -93,47 +93,7 @@ public class FireElementController : ElementController
 
 
 
-    //protected override void PerformNormalAttack()
-    //{
-    //    if (attackDirection.magnitude > 0)
-    //    {
-    //        // Chuyển đổi hướng kéo sang tọa độ thế giới
-    //        Vector2 attackDirectionWorld = joystickDirection.normalized;
-    //        Vector2 attackDirectionWorld2 = Camera.main.WorldToScreenPoint(attackDirectionWorld);
-    //        // Tính toán góc quay dựa trên hướng của đạn tấn công
-    //        float angle = Mathf.Atan2(attackDirectionWorld.y, attackDirectionWorld.x) * Mathf.Rad2Deg;
-
-    //        // Tạo Quaternion để đảm bảo đạn tấn công quay theo hướng bay
-    //        Quaternion attackRotation = Quaternion.Euler(0, 0, angle);
-    //        if (Time.time - lastAttackTime > attackCooldown)
-    //        {
-    //            if (currentElement != null && currentElement.normalAttackPrefab != null)
-    //            {
-
-    //                // Tạo đạn và định vị nó tại điểm tấn công với phép quay tương ứng
-    //                GameObject attack = Instantiate(currentElement.normalAttackPrefab, normalAttackPoint.position, Quaternion.identity);
-    //                Projectile projectile = attack.GetComponent<Projectile>();
-    //                if (projectile != null)
-    //                {
-    //                    // Áp dụng rotation cho đạn
-    //                    projectile.Initialize(attackDirectionWorld, currentElement.normalAttackSpeed, currentElement.normalAttackDamage);
-    //                    attack.transform.rotation = attackRotation;
-
-    //                    lastAttackTime = Time.time;
-    //                }
-    //                else
-    //                {
-    //                    Debug.LogError("Projectile component not found on normalAttackPrefab");
-    //                }
-    //            }
-    //            else
-    //            {
-    //                Debug.LogError("Normal attack prefab or currentElement is null");
-    //            }
-    //        }
-    //    }
-    //}
-
+   
     protected override void PerformNormalAttack()
     {
         if (attackDirection.magnitude > 0)
@@ -195,20 +155,33 @@ public class FireElementController : ElementController
     protected override void Ability2Canvas(Vector3 worldPosition)
     {
 
+    
         Vector2 direction = ((Vector2)worldPosition - (Vector2)playerTransform.position).normalized;
         float distance = Vector2.Distance(worldPosition, playerTransform.position);
         distance = Mathf.Min(distance, maxAbilityDistance);
 
-        // Calculate the new hit point based on direction and clamped distance
+        // Tính toán điểm mới dựa trên hướng và khoảng cách đã giới hạn
         Vector2 newHitpoint = (Vector2)playerTransform.position + direction * distance;
 
-        // Update the position of the abilityCanvas
+        // Cập nhật vị trí của abilityCanvas
         abilityCanvas.transform.position = new Vector3(newHitpoint.x, newHitpoint.y, abilityCanvas.transform.position.z);
-        // Calculate the rotation angle based on the direction
+
+        // Tính toán góc quay dựa trên hướng
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Rotate the abilityCanvas according to the calculated angle
+        // Lấy hướng của scale của người chơi
+        float playerScaleDirection = Mathf.Sign(playerTransform.localScale.x);
+
+        // Nếu hướng của scale của người chơi là âm (quay sang trái), thì thêm 180 độ
+        if (playerScaleDirection < 0)
+        {
+            angle += 180f;
+        }
+
+        // Tạo một quaternion từ góc quay đã tính toán
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+        // Áp dụng quay cho abilityCanvas
         abilityCanvas.transform.rotation = rotation;
     }
     protected override void ActivateSkill(Vector3 position)
@@ -307,26 +280,5 @@ public class FireElementController : ElementController
     }
 }
 
-   
-
-//			// Add FireWallUnit component to each child of the skill (FireWall)
-//			WindWallUnit[] units = skill.GetComponentsInChildren<WindWallUnit>();
-//			foreach (var unit in units)
-//			{
-//				unit.damage = currentElement.skillDamage;
-//			}
-
-//			// Destroy the skill after a certain duration
-//			Destroy(skill, currentElement.skillDuration);
-
-//			// Update the last skill activation time
-//			lastSkillTime = Time.time;
-//		}
-//		else
-//		{
-//			Debug.LogError("Skill prefab or element is null");
-//		}
-//	}
-
-//}
+  
 
