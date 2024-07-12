@@ -103,7 +103,7 @@ public class WinProjectile : MonoBehaviour
             PlayerBehaviour playerBehaviour = collision.GetComponent<PlayerBehaviour>();
             if (enemyBehaviour != null)
             {
-                enemyBehaviour.TakeHit(damage);
+                enemyBehaviour.TakeHit(damage,player);
                 Debug.Log("Enemy took damage: " + damage);
             }
             else if (playerBehaviour != null)
@@ -130,7 +130,7 @@ public class WinProjectile : MonoBehaviour
             {
                 if (Time.time >= nextDamageTime)
                 {
-                    enemyBehaviour.TakeHit(damage);
+                    enemyBehaviour.TakeHit(damage,player);
                     nextDamageTime = Time.time + damageInterval;
                     Debug.Log("Enemy took damage: " + damage);
                 }

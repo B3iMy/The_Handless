@@ -22,10 +22,6 @@ public class LaserProjectile : MonoBehaviour
 			if (player != null)
 			{
 				// take damage and destroy prefabs
-
-				player.TakeHit(damage);
-
-
 				player.TakeHit(stats.atk);
 
 				Debug.Log("Player nhan damage laser");

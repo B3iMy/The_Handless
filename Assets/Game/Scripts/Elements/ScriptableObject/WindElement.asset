@@ -18,4 +18,4 @@ MonoBehaviour:
   skillPrefab: {fileID: 2364810296440085326, guid: 077d9c12608673c42922e01eef92dc87, type: 3}
   skillDamage: 10
   skillDuration: 6
-  skillSpeed: 1
+  skillSpeed: 10
