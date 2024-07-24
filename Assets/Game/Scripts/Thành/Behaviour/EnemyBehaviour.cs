@@ -8,7 +8,18 @@ public class EnemyBehaviour : MonoBehaviour
 	[SerializeField] protected float maxHitpoints;
 	[SerializeField] protected HealthBarBehaviour healthbar;
 
+<<<<<<< Updated upstream
 	private void Start()
+=======
+	public event Action OnEnemyKilled;
+
+    // Reference to the DamageTracker
+	#if UNITY_EDITOR
+    public DamageTracker damageTracker;
+	#endif
+
+    private void Start()
+>>>>>>> Stashed changes
 	{
 		InitializeEnemy();
 	}
@@ -41,6 +52,22 @@ public class EnemyBehaviour : MonoBehaviour
 	{
 		hitpoints -= damage;
 
+<<<<<<< Updated upstream
+=======
+		string playerName = player.tag; // Use tag to identify player
+
+		Debug.Log($"Boss take {damage} damage from {playerName}");
+
+        // Add damage to DamageTracker
+	#if UNITY_EDITOR
+
+        if (damageTracker != null)
+		{
+			damageTracker.AddDamage(playerName, damage);
+		}
+	#endif
+
+>>>>>>> Stashed changes
 		if (hitpoints <= 0)
 		{
 			hitpoints = 0;

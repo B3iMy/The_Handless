@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/Game/Scripts/Enemy/Hitbox.cs.meta
 guid: 012e171c576665f4c9855eaf0a0dfb50
+=======
+guid: fb87287b663a9d342abe28bf77062d88
+>>>>>>> Stashed changes:Assets/Game/Scripts/DamageTrackerEditor.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

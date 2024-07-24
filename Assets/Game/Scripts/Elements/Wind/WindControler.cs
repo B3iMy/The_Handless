@@ -26,7 +26,40 @@ public  class WindControler : ElementController
         }
     }
 
+<<<<<<< Updated upstream
     protected override void Ability2Canvas(Vector3 worldPosition)
+=======
+    protected override void OnSkillButtonDown(BaseEventData eventData)
+    {
+        if (Time.time - lastSkillTime >= skillCooldown)
+        {
+            abilityCanvas.enabled = true;
+            skillIndicator.enabled = true; // Hiển thị chỉ báo kỹ năng
+            isAiming = true;
+
+            // Lưu vị trí ban đầu của skill indicator khi bắt đầu kéo
+            skillIndicatorInitialPosition = skillIndicator.transform.localPosition;
+        }
+        else
+        {
+            Debug.Log("Skill is on cooldown.");
+        }
+    }
+
+    protected override void OnSkillButtonUp(BaseEventData eventData)
+    {
+        currentElement.skillPrefab.SetActive(true);
+        if (isAiming)
+        {
+            ActivateSkill(playerTransform.position + (Vector3)skillDirection);
+            isAiming = false;
+            abilityCanvas.enabled = false;
+            skillIndicator.enabled = false; // Ẩn chỉ báo kỹ năng
+        }
+    }
+
+    protected override void OnSkillButtonDrag(BaseEventData eventData)
+>>>>>>> Stashed changes
     {
 
         // Calculate direction and distance directly from playerTransform to the worldPosition
